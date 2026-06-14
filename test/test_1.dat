@@ -10,7 +10,7 @@ set D := 1;
 set F := f1;
 
 param n := 1;
-param chain := 1 f1;
+param chain := 1 f1; #funzione catena f(s)
 
 param TAUNODE := tau;
 param o := 1 n1;
@@ -30,4 +30,4 @@ param gamma := f1 1;
 param q     := f1 5;
 
 param dem := 1 1;
-param capArc := 10;
+param capArc := 10; #capArc è u rinominata

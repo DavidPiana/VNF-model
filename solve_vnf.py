@@ -11,9 +11,9 @@ from amplpy import AMPL
 ampl = AMPL()
 
 #FILE_DATI = "test/vnf_data.dat"
-#FILE_DATI = "test/test_1.dat"
+FILE_DATI = "test/test_1.dat"
 # = "test/test_2.dat"
-FILE_DATI = "test/test_3.dat"
+#FILE_DATI = "test/test_3.dat"
 
 ampl.read("vnf_model.mod")
 ampl.read_data(FILE_DATI)

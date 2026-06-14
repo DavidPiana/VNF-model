@@ -10,7 +10,10 @@ from amplpy import AMPL
 
 ampl = AMPL()
 
-FILE_DATI = "test/test_1.dat"
+#FILE_DATI = "test/vnf_data.dat"
+#FILE_DATI = "test/test_1.dat"
+# = "test/test_2.dat"
+FILE_DATI = "test/test_3.dat"
 
 ampl.read("vnf_model.mod")
 ampl.read_data(FILE_DATI)
@@ -18,6 +21,7 @@ ampl.read_data(FILE_DATI)
 ampl.option["solver"] = "gurobi"
 ampl.solve()
 
+print(f"\n{'='*40}\n ESECUZIONE TEST: {FILE_DATI}\n{'='*40}\n")
 result = ampl.get_value("solve_result")
 print("solve_result:", result)
 

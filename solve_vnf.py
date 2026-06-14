@@ -13,7 +13,7 @@ ampl = AMPL()
 ampl.read("vnf_model.mod")
 ampl.read_data("vnf_data.dat")
 
-ampl.option["solver"] = "highs"
+ampl.option["solver"] = "gurobi"
 ampl.solve()
 
 result = ampl.get_value("solve_result")

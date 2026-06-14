@@ -1,0 +1,70 @@
+data;
+
+# ---- topology: 4-node ring, bidirectional ----
+set N := n1 n2 n3 n4;
+
+set A :=
+(n1,n2) (n2,n1)
+(n2,n3) (n3,n2)
+(n3,n4) (n4,n3)
+(n4,n1) (n1,n4);
+
+# ---- demands ----
+set D := 1 2;
+
+# ---- VNF types ----
+set F := f1 f2;
+
+# ---- chain: 2 services, f1 then f2 ----
+param n := 2;
+
+param chain :=
+1 f1
+2 f2;
+
+# ---- virtual sink label ----
+param TAUNODE := tau;
+
+# ---- demand origins ----
+param o :=
+1 n1
+2 n3;
+
+# ---- alpha_{i,f}: VNF f can run on node i (i not in O = {n1,n3}) ----
+param alpha:  f1  f2 :=
+n1            0   0
+n2            1   1
+n3            0   0
+n4            1   1;
+
+# ---- transport delay on each physical arc ----
+param delay :=
+[n1,n2] 1
+[n2,n1] 1
+[n2,n3] 1
+[n3,n2] 1
+[n3,n4] 1
+[n4,n3] 1
+[n4,n1] 1
+[n1,n4] 1;
+
+# ---- VNF setup / processing times ----
+param sigma :=
+f1 2
+f2 2;
+
+param gamma :=
+f1 1
+f2 1;
+
+# ---- VNF instance capacity ----
+param q :=
+f1 5
+f2 5;
+
+# ---- unused parameters (kept for completeness) ----
+param dem :=
+1 1
+2 1;
+
+param capArc := 10;

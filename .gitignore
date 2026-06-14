@@ -1,0 +1,15 @@
+# Ambienti virtuali
+.venv/
+venv/
+env/
+
+# Cache di Python (file temporanei inutili da salvare)
+__pycache__/
+*.pyc
+*.pyo
+
+# Impostazioni locali di VS Code (opzionale)
+.vscode/
+
+# Se i tuoi file dati di AMPL sono enormi o generati dinamicamente, decommenta la riga sotto
+# *.dat

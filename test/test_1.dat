@@ -30,4 +30,4 @@ param gamma := f1 1;
 param q     := f1 5;
 
 param dem := 1 1;
-param capArc := 10; #capArc è u rinominata
+param capArc := 10;

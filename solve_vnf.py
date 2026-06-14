@@ -19,6 +19,8 @@ ampl.read("vnf_model.mod")
 ampl.read_data(FILE_DATI)
 
 ampl.option["solver"] = "gurobi"
+#ampl.option["solver"] = "highs"
+
 ampl.solve()
 
 print(f"\n{'='*40}\n ESECUZIONE TEST: {FILE_DATI}\n{'='*40}\n")

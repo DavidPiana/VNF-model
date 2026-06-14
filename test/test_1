@@ -1,0 +1,33 @@
+data;
+
+# ---- Test 1: Linea ----
+set N := n1 n2 n3;
+set A := 
+(n1,n2) (n2,n1)
+(n2,n3) (n3,n2);
+
+set D := 1;
+set F := f1;
+
+param n := 1;
+param chain := 1 f1;
+
+param TAUNODE := tau;
+param o := 1 n1;
+
+# f1 è eseguibile SOLO su n3
+param alpha:  f1 :=
+n1            0
+n2            0
+n3            1;
+
+param delay :=
+[n1,n2] 1  [n2,n1] 1
+[n2,n3] 1  [n3,n2] 1;
+
+param sigma := f1 2;
+param gamma := f1 1;
+param q     := f1 5;
+
+param dem := 1 1;
+param capArc := 10;

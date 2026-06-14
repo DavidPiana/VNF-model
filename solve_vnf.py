@@ -10,8 +10,10 @@ from amplpy import AMPL
 
 ampl = AMPL()
 
+FILE_DATI = "test/test_1.dat"
+
 ampl.read("vnf_model.mod")
-ampl.read_data("vnf_data.dat")
+ampl.read_data(FILE_DATI)
 
 ampl.option["solver"] = "gurobi"
 ampl.solve()

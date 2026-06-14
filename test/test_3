@@ -1,0 +1,49 @@
+data;
+
+# ---- Test 3: Unificazione e No-Bifurcation ----
+set N := n1 n2 n3 n4;
+set A := 
+(n1,n2) (n2,n1)
+(n2,n3) (n3,n2)
+(n2,n4) (n4,n2);
+
+set D := 1 2;
+set F := f1 f2;
+
+param n := 2;
+param chain := 
+1 f1
+2 f2;
+
+param TAUNODE := tau;
+param o := 
+1 n1
+2 n1;
+
+# f1 solo su n2. f2 sia su n3 che su n4.
+param alpha:  f1  f2 :=
+n1            0   0
+n2            1   0
+n3            0   1
+n4            0   1;
+
+param delay :=
+[n1,n2] 1  [n2,n1] 1
+[n2,n3] 1  [n3,n2] 1
+[n2,n4] 1  [n4,n2] 1;
+
+param sigma := 
+f1 1
+f2 1;
+
+param gamma := 
+f1 1
+f2 1;
+
+# Capacità abbondante
+param q := 
+f1 10
+f2 10;
+
+param dem := 1 1  2 1;
+param capArc := 10;

@@ -1,0 +1,42 @@
+data;
+
+# ---- Test 2: Capacità q_f ----
+set N := n1 n2 n3 n4;
+set A := 
+(n1,n2) (n2,n1)
+(n1,n3) (n3,n1)
+(n2,n4) (n4,n2)
+(n3,n4) (n4,n3);
+
+set D := 1 2;
+set F := f1;
+
+param n := 1;
+param chain := 1 f1;
+
+param TAUNODE := tau;
+param o := 
+1 n1
+2 n1;
+
+# f1 eseguibile su n2 e n3
+param alpha:  f1 :=
+n1            0
+n2            1
+n3            1
+n4            0;
+
+param delay :=
+[n1,n2] 1  [n2,n1] 1
+[n1,n3] 1  [n3,n1] 1
+[n2,n4] 1  [n4,n2] 1
+[n3,n4] 1  [n4,n3] 1;
+
+param sigma := f1 1;
+param gamma := f1 1;
+
+# LA CAPACITÀ È 1: forza le due domande a usare nodi diversi
+param q     := f1 1;
+
+param dem := 1 1  2 1;
+param capArc := 10;

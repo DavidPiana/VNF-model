@@ -1,0 +1,9 @@
+[project]
+name = "vnf-model"
+version = "0.1.0"
+description = "Modello di ottimizzazione per placement e routing di VNF, risolto con AMPL e amplpy"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "amplpy>=0.13",
+]

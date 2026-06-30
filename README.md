@@ -27,7 +27,7 @@ Dalla root del repository:
 
 ```bash
 # Installa uv (se non già presente)
-curl -LsSf https://astral.sh/uv/install.sh | sh
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
 # Crea pyproject.toml, ambiente virtuale e installa amplpy
 uv add amplpy

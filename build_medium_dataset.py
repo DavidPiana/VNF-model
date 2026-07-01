@@ -9,6 +9,10 @@ delay, sigma, gamma, q, capArc, TAUNODE).
 
 USO
 ---
+Sintassi:
+    python build_medium_dataset.py --clients {48,96} --topology {balanced,inst1} [--num-clients N] --out PATH
+
+Esempi:
     python build_medium_dataset.py --clients 48 --topology balanced --out test/medium_48_balanced.dat
     python build_medium_dataset.py --clients 48 --topology balanced --num-clients 8 --out test/medium_8.dat
 

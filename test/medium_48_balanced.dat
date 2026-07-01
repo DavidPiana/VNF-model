@@ -1,7 +1,6 @@
 data;
 
 # Generato da build_medium_dataset.py a partire da DataMedium/ (48clients_balanced)
-# DataMedium NON è stato modificato: questo è un file derivato.
 
 set N := ds1 ds2 ds3 ds4 ds5 ds6 ds7 ds8 ds9 ds10 ds11 ds12 ds13 ds14 ds15 ds16 ds17 ds18 ds19 ds20 ds21 ds22 ds23 ds24 ds25 ds26 ds27 ds28 ds29 ds30 ds31 ds32 ds33 ds34 ds35 ds36 ds37 ds38 ds39 ds40 ds41 ds42 ds43 ds44 ds45 ds46 ds47 ds48 en1 en2 en3 en4 en5 en6 en7 en8 en9 en10 en11 en12 en13 en14 en15 en16 en17 en18 en19 en20 en21 en22 en23 en24 cn1 cn2 cn3 cn4 cn5 cn6 cn7 cn8 cn9 cn10 cn11 cn12 bn1 bn2 bn3 bn4 bn5 bn6 k1 k2 k3;
 set A :=

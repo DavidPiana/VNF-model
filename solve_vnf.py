@@ -15,7 +15,7 @@ start_time = time.time()
 ampl = AMPL()
 
 #FILE_DATI = "test/vnf_data.dat"
-FILE_DATI = "test/test_1.dat"
+FILE_DATI = "test/medium_8.dat"
 # = "test/test_2.dat"
 #FILE_DATI = "test/test_3.dat"
 

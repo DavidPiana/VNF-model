@@ -4,20 +4,26 @@ Risolve il modello AMPL (Model Formulation 3) con amplpy.
 Installazione richiesta (una tantum):
     pip install amplpy
     python -m amplpy.modules install highs      # solver MILP open-source
+
+codice si esegue con
+python solve_vnf.py test/medium_8.dat
+
 """
 
 import os
 import time
+import argparse
 from amplpy import AMPL
 
 start_time = time.time()
 
 ampl = AMPL()
 
-#FILE_DATI = "test/vnf_data.dat"
-FILE_DATI = "test/medium_8.dat"
-# = "test/test_2.dat"
-#FILE_DATI = "test/test_3.dat"
+parser = argparse.ArgumentParser(description="Risolve il modello AMPL (Model Formulation 3) con amplpy.")
+parser.add_argument("data_file", help="Percorso del file dati da risolvere")
+args = parser.parse_args()
+
+FILE_DATI = args.data_file
 
 ampl.read("vnf_model.mod")
 ampl.read_data(FILE_DATI)

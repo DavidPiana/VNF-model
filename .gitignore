@@ -14,5 +14,3 @@ __pycache__/
 # Se i tuoi file dati di AMPL sono enormi o generati dinamicamente, decommenta la riga sotto
 # *.dat
 
-# Ignora la cartella dei risultati
-results/

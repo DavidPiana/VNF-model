@@ -6,7 +6,7 @@ Installazione richiesta (una tantum):
     python -m amplpy.modules install highs      # solver MILP open-source
 
 codice si esegue con
-python solve_vnf.py test/medium_8.dat
+python solve_vnf.py test/medium_8.dat --time-limit 120
 
 """
 
@@ -21,6 +21,7 @@ ampl = AMPL()
 
 parser = argparse.ArgumentParser(description="Risolve il modello AMPL (Model Formulation 3) con amplpy.")
 parser.add_argument("data_file", help="Percorso del file dati da risolvere")
+parser.add_argument("--time-limit", type=int, default=120, dest="time_limit", help="Limite di tempo in secondi per il solver")
 args = parser.parse_args()
 
 FILE_DATI = args.data_file
@@ -30,7 +31,7 @@ ampl.read_data(FILE_DATI)
 
 ampl.option["solver"] = "gurobi"
 #ampl.option["solver"] = "highs"
-ampl.option["gurobi_options"] = "timelim=120 return_bound=1"
+ampl.option["gurobi_options"] = f"timelim={args.time_limit} return_bound=1"
 
 ampl.solve()
 
@@ -54,7 +55,7 @@ result = ampl.get_value("solve_result")
 print_out(f"solve_result: {result}")
 
 if result == "limit":
-    print_out("\n--- LIMITE DI TEMPO (120s) RAGGIUNTO ---")
+    print_out(f"\n--- LIMITE DI TEMPO ({args.time_limit}s) RAGGIUNTO ---")
     try:
         upper_bound = ampl.get_value("Obj_MaxLatency")
         lower_bound = ampl.get_value("Obj_MaxLatency.bestbound")

@@ -1,0 +1,23 @@
+
+========================================
+ ESECUZIONE TEST: test/test_1.dat
+========================================
+
+Tempo di esecuzione: 1.16 secondi
+solve_result: solved
+
+L_max = 5
+
+--- Installazioni VNF (y_if = 1) ---
+  VNF f1 installata sul nodo n3
+
+--- Assegnazioni domanda->VNF (z_if^k = 1) ---
+  Domanda 1: usa VNF f1 sul nodo n3
+
+--- Routing (x_ij^ks = 1) ---
+  Domanda 1, subpath 1: arco (n1 -> n2)
+  Domanda 1, subpath 1: arco (n2 -> n3)
+  Domanda 1, subpath 2: arco (n3 -> tau)
+
+--- Latenza per domanda ---
+  Domanda 1: L = 5

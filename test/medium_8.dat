@@ -78,8 +78,20 @@ param delay :=
 
 param sigma := F1 0.0000 F2 0.0000 F3 0.0000 F4 0.0000;
 param gamma := F1 0.0000 F2 0.0000 F3 0.0000 F4 0.0000;
-param q     := F1 384.6154 F2 5102.5641 F3 769.2308 F4 769.2308;
+param q     := F1 384.6154 F2 40.0000 F3 769.2308 F4 769.2308;
 
 param dem :=
 ds1 1.6500 ds2 1.6500 ds3 1.6500 ds4 1.6500 ds5 1.6500 ds6 1.6500 ds7 1.6500 ds8 1.6500;
 param capArc := 1;
+
+# Parametri training time F2 (federated learning)
+param c_batch := -102.564103;
+param c_inv_matr :=
+1 230.7692308 2 115.3846154 3 230.7692308;
+param q_batch := 5102.5641;
+param q_inv_matr :=
+1 769.230769 2 384.615384 3 769.230769;
+param lv :=
+en1 1 en2 1 en3 1 en4 1 en5 1 en6 1 en7 1 en8 1 en9 1 en10 1 en11 1 en12 1 en13 1 en14 1 en15 1 en16 1 en17 1 en18 1 en19 1 en20 1 en21 1 en22 1 en23 1 en24 1 cn1 2 cn2 2 cn3 2 cn4 2 cn5 2 cn6 2 cn7 2 cn8 2 cn9 2 cn10 2 cn11 2 cn12 2 bn1 3 bn2 3 bn3 3 bn4 3 bn5 3 bn6 3;
+param T_target := 5000000;
+param DS_max := 40;

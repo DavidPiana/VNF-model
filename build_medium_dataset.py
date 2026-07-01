@@ -41,15 +41,17 @@ rappresentare fedelmente il costo a coda delle funzioni 5G Core):
                F4: livello  {3}     (solo border)             -- da richiesta utente
              I nodi DS e K non hanno livello definito in DataMedium:
              alpha=0 per loro su tutte le funzioni.
-  q[f]     = riuso dei valori di capacita' gia' presenti in 
-             functions_5G_Core.dat (nessun valore per F1..F4 e' fornito
-             esplicitamente): F1<-q_queue, F2<-q_batch,
-             F3<-q_inv_matr[1], F4<-q_inv_matr[3]. Puramente un
-             placeholder numerico "reale" (non inventato) finche' non
-             si hanno capacita' effettive per le 4 funzioni.
-  sigma[f] = gamma[f] = 0  (richiesto esplicitamente: per ora si conta
-             solo il costo di trasporto front/back-hauling, non il
-             costo di elaborazione delle funzioni)
+  q[f]     = capacita' (max domande servite) di ciascuna VNF per nodo.
+              F2 <- DS_max (=40, capacita' reale dal file functions_5G_Core.dat).
+              F1 <- q_queue, F3 <- q_inv_matr[1], F4 <- q_inv_matr[3]
+              (placeholder numerici finche' non si hanno capacita' effettive).
+  sigma[f] = gamma[f] = 0 per F1, F3, F4.
+  Training time F2: il processing time di F2 e' dato dalla formula
+              T[i,F2] = (c_batch + c_inv_matr[lv(i)]) * u + (q_batch + q_inv_matr[lv(i)]) * y
+              dove u = num. domande assegnate, lv(i) = livello del nodo (1=EN, 2=CN, 3=BN).
+              Questi parametri sono esportati nel .dat per il vincolo nel modello.
+  T_target = 5000000 (da parameters.dat): vincolo T[i,F2] <= T_target.
+  DS_max   = 40 (da functions_5G_Core.dat): vincolo sum z[k,i,F2] <= DS_max.
   o[k]     = k stesso (ogni client ds_i e' l'origine della domanda k=ds_i)
   dem[k]   = tt (da parameters.dat, unico fattore di traffico disponibile)
   capArc   = 1 (placeholder: il parametro esiste nel modello ma non e'
@@ -158,14 +160,16 @@ def build(clients: int, topology: str, num_clients: int | None):
     fd = parse_param_matrix((DATA_DIR / "front_hauling_MAN.dat").read_text(), "fd")
 
     funcs = (DATA_DIR / "functions_5G_Core.dat").read_text()
-    # nota: c_queue/c_batch/c_inv_matr non vengono usati (vedi docstring:
-    # c_batch e' negativo, incompatibile con sigma_f >= 0 del modello)
+    DS_max_val = parse_scalar(funcs, "DS_max")
+    c_batch = parse_scalar(funcs, "c_batch")
+    c_inv_matr = parse_indexed_col(funcs, "c_inv_matr")
     q_queue = parse_scalar(funcs, "q_queue")
     q_batch = parse_scalar(funcs, "q_batch")
     q_inv_matr = parse_indexed_col(funcs, "q_inv_matr")
 
     params = (DATA_DIR / "parameters.dat").read_text()
     tt = parse_scalar(params, "tt")
+    T_target = parse_scalar(params, "T_target")
 
     # ---- N ----
     N = list(DS) + V_EN + V_CN + V_BN + K
@@ -189,7 +193,7 @@ def build(clients: int, topology: str, num_clients: int | None):
     chain = {1: "F1", 2: "F2", 3: "F3", 4: "F4"}
     q = {
         "F1": q_queue,
-        "F2": q_batch,
+        "F2": DS_max_val,     # capacita' reale: DS_max
         "F3": q_inv_matr[1],
         "F4": q_inv_matr[3],
     }
@@ -211,6 +215,10 @@ def build(clients: int, topology: str, num_clients: int | None):
         "F": F, "chain": chain, "q": q, "sigma": sigma, "gamma": gamma,
         "alpha_val": alpha_val,
         "D": D, "o": o, "dem": dem,
+        # parametri training time F2 (federated learning)
+        "lv": lv, "c_batch": c_batch, "c_inv_matr": c_inv_matr,
+        "q_batch": q_batch, "q_inv_matr": q_inv_matr,
+        "T_target": T_target, "DS_max": DS_max_val,
     }
 
 
@@ -223,6 +231,13 @@ def write_dat(data, out_path: Path, source_label: str):
     F, chain, q, sigma, gamma = data["F"], data["chain"], data["q"], data["sigma"], data["gamma"]
     alpha_val = data["alpha_val"]
     D, o, dem = data["D"], data["o"], data["dem"]
+    lv = data["lv"]
+    c_batch = data["c_batch"]
+    c_inv_matr = data["c_inv_matr"]
+    q_batch = data["q_batch"]
+    q_inv_matr = data["q_inv_matr"]
+    T_target = data["T_target"]
+    DS_max = data["DS_max"]
 
     lines = []
     lines.append("data;")
@@ -261,6 +276,19 @@ def write_dat(data, out_path: Path, source_label: str):
     lines.append("param dem :=")
     lines.append(" ".join(f"{k} {v:.4f}" for k, v in dem.items()) + ";")
     lines.append("param capArc := 1;")
+    lines.append("")
+    # ---- Parametri training time F2 (federated learning) ----
+    lines.append("# Parametri training time F2 (federated learning)")
+    lines.append(f"param c_batch := {c_batch:.10g};")
+    lines.append("param c_inv_matr :=")
+    lines.append(" ".join(f"{k} {v:.10g}" for k, v in sorted(c_inv_matr.items())) + ";")
+    lines.append(f"param q_batch := {q_batch:.10g};")
+    lines.append("param q_inv_matr :=")
+    lines.append(" ".join(f"{k} {v:.10g}" for k, v in sorted(q_inv_matr.items())) + ";")
+    lines.append("param lv :=")
+    lines.append(" ".join(f"{node} {level}" for node, level in lv.items()) + ";")
+    lines.append(f"param T_target := {T_target:.10g};")
+    lines.append(f"param DS_max := {DS_max:.10g};")
     lines.append("")
 
     out_path.parent.mkdir(parents=True, exist_ok=True)

@@ -22,11 +22,13 @@ ampl = AMPL()
 parser = argparse.ArgumentParser(description="Risolve il modello AMPL (Model Formulation 3) con amplpy.")
 parser.add_argument("data_file", help="Percorso del file dati da risolvere")
 parser.add_argument("--time-limit", type=int, default=120, dest="time_limit", help="Limite di tempo in secondi per il solver")
+parser.add_argument("--model", type=str, default="vnf_model.mod", help="File del modello AMPL (default: vnf_model.mod)")
+parser.add_argument("--out", type=str, default=None, help="Percorso del file di risultati (opzionale)")
 args = parser.parse_args()
 
 FILE_DATI = args.data_file
 
-ampl.read("vnf_model.mod")
+ampl.read(args.model)
 ampl.read_data(FILE_DATI)
 
 ampl.option["solver"] = "gurobi"
@@ -38,10 +40,14 @@ ampl.solve()
 end_time = time.time()
 execution_time = end_time - start_time
 
-test_name = os.path.basename(FILE_DATI).split('.')[0]
-results_dir = "results"
-os.makedirs(results_dir, exist_ok=True)
-output_file = os.path.join(results_dir, f"{test_name}_results.txt")
+if args.out:
+    output_file = args.out
+    os.makedirs(os.path.dirname(output_file) or ".", exist_ok=True)
+else:
+    test_name = os.path.basename(FILE_DATI).split('.')[0]
+    results_dir = "results"
+    os.makedirs(results_dir, exist_ok=True)
+    output_file = os.path.join(results_dir, f"{test_name}_results.txt")
 
 output_lines = []
 def print_out(text=""):

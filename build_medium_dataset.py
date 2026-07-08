@@ -45,11 +45,16 @@ rappresentare fedelmente il costo a coda delle funzioni 5G Core):
               F2 <- DS_max (=40, capacita' reale dal file functions_5G_Core.dat).
               F1 <- q_queue, F3 <- q_inv_matr[1], F4 <- q_inv_matr[3]
               (placeholder numerici finche' non si hanno capacita' effettive).
-  sigma[f] = gamma[f] = 0 per F1, F3, F4.
-  Training time F2: il processing time di F2 e' dato dalla formula
-              T[i,F2] = (c_batch + c_inv_matr[lv(i)]) * u + (q_batch + q_inv_matr[lv(i)]) * y
-              dove u = num. domande assegnate, lv(i) = livello del nodo (1=EN, 2=CN, 3=BN).
-              Questi parametri sono esportati nel .dat per il vincolo nel modello.
+  Processing time per funzione (confermato dalla prof):
+    F1 (ingress) e F3 (egress): modello a coda
+              T[i,f] = c_queue * sum_k z[k,i,f] + q_queue * y[i,f]
+              sigma[F1] = sigma[F3] = q_queue (intercetta/setup)
+              gamma[F1] = gamma[F3] = c_queue (coeff. angolare/variabile)
+    F2 (batch/FL): formula specializzata (federated learning)
+              T[i,F2] = (c_batch + c_inv_matr[lv(i)]) * sum_k z + (q_batch + q_inv_matr[lv(i)]) * y
+              dove lv(i) = livello del nodo (1=EN, 2=CN, 3=BN).
+              Parametri esportati nel .dat per il vincolo ProcTimeF2.
+    F4 (AIF):  nessun impatto sul tempo (sigma = gamma = 0).
   T_target = 5000000 (da parameters.dat): vincolo T[i,F2] <= T_target.
   DS_max   = 40 (da functions_5G_Core.dat): vincolo sum z[k,i,F2] <= DS_max.
   o[k]     = k stesso (ogni client ds_i e' l'origine della domanda k=ds_i)
@@ -161,6 +166,7 @@ def build(clients: int, topology: str, num_clients: int | None):
 
     funcs = (DATA_DIR / "functions_5G_Core.dat").read_text()
     DS_max_val = parse_scalar(funcs, "DS_max")
+    c_queue = parse_scalar(funcs, "c_queue")
     c_batch = parse_scalar(funcs, "c_batch")
     c_inv_matr = parse_indexed_col(funcs, "c_inv_matr")
     q_queue = parse_scalar(funcs, "q_queue")
@@ -197,8 +203,12 @@ def build(clients: int, topology: str, num_clients: int | None):
         "F3": q_inv_matr[1],
         "F4": q_inv_matr[3],
     }
-    sigma = {f: 0.0 for f in F}
-    gamma = {f: 0.0 for f in F}
+    # sigma = intercetta (setup time), gamma = coeff. angolare (tempo/domanda)
+    # F1, F3: modello a coda (c_queue, q_queue)
+    # F2: gestito da ProcTimeF2 nel modello (sigma/gamma non usati)
+    # F4: nessun impatto sul tempo
+    sigma = {"F1": q_queue, "F2": 0.0, "F3": q_queue, "F4": 0.0}
+    gamma = {"F1": c_queue, "F2": 0.0, "F3": c_queue, "F4": 0.0}
 
     # ---- alpha: installabilita' per livello (vedi ALPHA_LEVELS) ----
     def alpha_val(node, f):

@@ -1,0 +1,117 @@
+
+========================================
+ ESECUZIONE TEST: test/medium_48_inst1.dat
+========================================
+
+Tempo di esecuzione: 51.83 secondi
+solve_result: limit
+
+--- LIMITE DI TEMPO (20s) RAGGIUNTO ---
+Migliore soluzione (Upper Bound): 0
+Migliore lower bound: -10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104
+
+L_max = 0
+
+--- Installazioni VNF (y_if = 1) ---
+
+--- Assegnazioni domanda->VNF (z_if^k = 1) ---
+
+--- Routing (x_ij^ks = 1) ---
+  Domanda ds1, subpath 1: arco (ds1 -> en21)
+  Domanda ds10, subpath 1: arco (ds10 -> en4)
+  Domanda ds11, subpath 1: arco (ds11 -> en22)
+  Domanda ds12, subpath 1: arco (ds12 -> en24)
+  Domanda ds13, subpath 1: arco (ds13 -> en18)
+  Domanda ds14, subpath 1: arco (ds14 -> en3)
+  Domanda ds15, subpath 1: arco (ds15 -> en19)
+  Domanda ds16, subpath 1: arco (ds16 -> en14)
+  Domanda ds17, subpath 1: arco (ds17 -> en2)
+  Domanda ds18, subpath 1: arco (ds18 -> en1)
+  Domanda ds19, subpath 1: arco (ds19 -> en3)
+  Domanda ds2, subpath 1: arco (ds2 -> en4)
+  Domanda ds20, subpath 1: arco (ds20 -> en7)
+  Domanda ds21, subpath 1: arco (ds21 -> en8)
+  Domanda ds22, subpath 1: arco (ds22 -> en17)
+  Domanda ds23, subpath 1: arco (ds23 -> en20)
+  Domanda ds24, subpath 1: arco (ds24 -> en1)
+  Domanda ds25, subpath 1: arco (ds25 -> en18)
+  Domanda ds26, subpath 1: arco (ds26 -> en7)
+  Domanda ds27, subpath 1: arco (ds27 -> en23)
+  Domanda ds28, subpath 1: arco (ds28 -> en21)
+  Domanda ds29, subpath 1: arco (ds29 -> en23)
+  Domanda ds3, subpath 1: arco (ds3 -> en1)
+  Domanda ds30, subpath 1: arco (ds30 -> en18)
+  Domanda ds31, subpath 1: arco (ds31 -> en14)
+  Domanda ds32, subpath 1: arco (ds32 -> en8)
+  Domanda ds33, subpath 1: arco (ds33 -> en15)
+  Domanda ds34, subpath 1: arco (ds34 -> en19)
+  Domanda ds35, subpath 1: arco (ds35 -> en9)
+  Domanda ds36, subpath 1: arco (ds36 -> en1)
+  Domanda ds37, subpath 1: arco (ds37 -> en6)
+  Domanda ds38, subpath 1: arco (ds38 -> en23)
+  Domanda ds39, subpath 1: arco (ds39 -> en14)
+  Domanda ds4, subpath 1: arco (ds4 -> en24)
+  Domanda ds40, subpath 1: arco (ds40 -> en11)
+  Domanda ds41, subpath 1: arco (ds41 -> en9)
+  Domanda ds42, subpath 1: arco (ds42 -> en5)
+  Domanda ds43, subpath 1: arco (ds43 -> en7)
+  Domanda ds44, subpath 1: arco (ds44 -> en11)
+  Domanda ds45, subpath 1: arco (ds45 -> en4)
+  Domanda ds46, subpath 1: arco (ds46 -> en3)
+  Domanda ds47, subpath 1: arco (ds47 -> en13)
+  Domanda ds48, subpath 1: arco (ds48 -> en4)
+  Domanda ds5, subpath 1: arco (ds5 -> en9)
+  Domanda ds6, subpath 1: arco (ds6 -> en8)
+  Domanda ds7, subpath 1: arco (ds7 -> en8)
+  Domanda ds8, subpath 1: arco (ds8 -> en5)
+  Domanda ds9, subpath 1: arco (ds9 -> en24)
+
+--- Latenza per domanda ---
+  Domanda ds1: L = 0
+  Domanda ds10: L = 0
+  Domanda ds11: L = 0
+  Domanda ds12: L = 0
+  Domanda ds13: L = 0
+  Domanda ds14: L = 0
+  Domanda ds15: L = 0
+  Domanda ds16: L = 0
+  Domanda ds17: L = 0
+  Domanda ds18: L = 0
+  Domanda ds19: L = 0
+  Domanda ds2: L = 0
+  Domanda ds20: L = 0
+  Domanda ds21: L = 0
+  Domanda ds22: L = 0
+  Domanda ds23: L = 0
+  Domanda ds24: L = 0
+  Domanda ds25: L = 0
+  Domanda ds26: L = 0
+  Domanda ds27: L = 0
+  Domanda ds28: L = 0
+  Domanda ds29: L = 0
+  Domanda ds3: L = 0
+  Domanda ds30: L = 0
+  Domanda ds31: L = 0
+  Domanda ds32: L = 0
+  Domanda ds33: L = 0
+  Domanda ds34: L = 0
+  Domanda ds35: L = 0
+  Domanda ds36: L = 0
+  Domanda ds37: L = 0
+  Domanda ds38: L = 0
+  Domanda ds39: L = 0
+  Domanda ds4: L = 0
+  Domanda ds40: L = 0
+  Domanda ds41: L = 0
+  Domanda ds42: L = 0
+  Domanda ds43: L = 0
+  Domanda ds44: L = 0
+  Domanda ds45: L = 0
+  Domanda ds46: L = 0
+  Domanda ds47: L = 0
+  Domanda ds48: L = 0
+  Domanda ds5: L = 0
+  Domanda ds6: L = 0
+  Domanda ds7: L = 0
+  Domanda ds8: L = 0
+  Domanda ds9: L = 0

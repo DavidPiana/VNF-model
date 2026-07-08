@@ -56,14 +56,9 @@ param delay{A} >= 0;               # transport delay tau_ij on physical arc (i,j
 param sigma{F} >= 0;                # fixed setup time of VNF type f
 param gamma{F} >= 0;                # variable processing time per demand for VNF type f
 
-# big-M per funzione: limita T[i,f] al massimo valore possibile per ogni f
-# F1/F3: sigma + gamma*|D|;  F2: T_target;  F4: 0
-param Mf_base {f in F} := sigma[f] + gamma[f] * card(D);
-param Mf_F2 := max {lv_idx in 1..3}
-    (q_batch + q_inv_matr[lv_idx]) + (c_batch + c_inv_matr[lv_idx]) * card(D);
-param Mf {f in F} := if f = 'F2' then
-    (if Mf_F2 < T_target then Mf_F2 else T_target)
-  else Mf_base[f];
+# big-M as derived in the formulation, updated to cover F2's federated learning time
+param M_base := max {f in F} sigma[f] + (max {f in F} gamma[f]) * card(D);
+param M := if M_base > T_target then M_base else T_target;
 
 # --------------------------- VARIABLES --------------------------------
 var y{N,F} binary;                  # y_{i,f}
@@ -145,10 +140,10 @@ subject to ProcTimeOther {i in N, f in F: f != 'F2' and alpha[i,f] = 1}:
 
 # (12)-(13) linearisation of Theta_{i,f}^k
 subject to Theta1 {k in D, i in N, f in F: alpha[i,f] = 1}:
-    Theta[k,i,f] <= Mf[f] * z[k,i,f];
+    Theta[k,i,f] <= M * z[k,i,f];
 
 subject to Theta2 {k in D, i in N, f in F: alpha[i,f] = 1}:
-    Theta[k,i,f] >= T[i,f] - Mf[f]*(1 - z[k,i,f]);
+    Theta[k,i,f] >= T[i,f] - M*(1 - z[k,i,f]);
 
 # (14) end-to-end latency
 subject to Latency {k in D}:

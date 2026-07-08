@@ -1,0 +1,8 @@
+
+========================================
+ ESECUZIONE TEST: test/medium_96_balanced.dat
+========================================
+
+Tempo di esecuzione: 518.10 secondi
+solve_result: failure
+Nessuna soluzione ottima trovata.

@@ -60,7 +60,7 @@ param gamma{F} >= 0;                # variable processing time per demand for VN
 # F1/F3: sigma + gamma*|D|;  F2: T_target;  F4: 0
 param Mf_base {f in F} := sigma[f] + gamma[f] * card(D);
 param Mf_F2 := max {lv_idx in 1..3}
-    (q_batch + q_inv_matr[lv_idx]) + (c_batch + c_inv_matr[lv_idx]) * card(D);
+    ((q_batch + q_inv_matr[lv_idx]) + (c_batch + c_inv_matr[lv_idx]) * card(D));
 param Mf {f in F} := if f = 'F2' then
     (if Mf_F2 < T_target then Mf_F2 else T_target)
   else Mf_base[f];

@@ -71,17 +71,11 @@ param Mf {f in F} := if f = 'F2' then
     (if Mf_F2 < T_target then Mf_F2 else T_target)
   else Mf_base[f];
 
-# ---- OPT-2: set of (node, stage) pairs where w is needed ----
-# w[i,*,*,s] e' utile solo se il nodo i puo' eseguire chain[s]
-set W_ACTIVE := setof {i in N, s in 1..n: alpha[i, chain[s]] = 1} (i, s);
-
 # --------------------------- VARIABLES --------------------------------
 var y{N,F} binary;                  # y_{i,f}
 var z{D,N,F} binary;                # z_{i,f}^k
 var x{D, APLUS, 1..n+1} binary;     # x_{ij}^{ks}
-
-# OPT-2: w definita solo sulle coppie (i,s) attive
-var w{(i,s) in W_ACTIVE, (u,v) in APLUS} binary;   # w_{uv}^{i,s+1}
+var w{N, APLUS, 1..n} binary;       # w_{uv}^{i,s+1}  (indici rettangolari per efficienza AMPL)
 
 var T{N,F} >= 0;                    # T_{i,f}
 var Theta{D,N,F} >= 0;              # Theta_{i,f}^k
@@ -139,13 +133,13 @@ subject to InDegree {k in D, i in N}:
 subject to OutDegree {k in D, i in N}:
     sum {s in 1..n+1} sum {j in NPLUS: (i,j) in APLUS} x[k,i,j,s] <= 1;
 
-# (9) path-unification (coupling) — OPT-2: solo per (i,s) in W_ACTIVE
-subject to Coupling {k in D, (i,s) in W_ACTIVE, (u,v) in APLUS}:
-    x[k,u,v,s+1] <= w[i,s,u,v] + (1 - z[k,i,chain[s]]);
+# (9) path-unification (coupling) — OPT-2: solo dove alpha[i,chain[s]]=1
+subject to Coupling {k in D, i in N, (u,v) in APLUS, s in 1..n: alpha[i,chain[s]] = 1}:
+    x[k,u,v,s+1] <= w[i,u,v,s] + (1 - z[k,i,chain[s]]);
 
-# (10) no bifurcation of aggregated paths — OPT-2: solo per (i,s) in W_ACTIVE
-subject to NoBifurcation {u in N, (i,s) in W_ACTIVE}:
-    sum {v in NPLUS: (u,v) in APLUS} w[i,s,u,v] <= 1;
+# (10) no bifurcation of aggregated paths — OPT-2: solo dove alpha[i,chain[s]]=1
+subject to NoBifurcation {u in N, i in N, s in 1..n: alpha[i,chain[s]] = 1}:
+    sum {v in NPLUS: (u,v) in APLUS} w[i,u,v,s] <= 1;
 
 # (11a) processing time per F2 (federated learning)
 subject to ProcTimeF2 {i in N: alpha[i,'F2'] = 1}:

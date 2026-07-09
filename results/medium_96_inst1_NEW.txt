@@ -1,0 +1,8 @@
+
+========================================
+ ESECUZIONE TEST: test/medium_96_inst1.dat
+========================================
+
+Tempo di esecuzione: 645.39 secondi
+solve_result: failure
+Nessuna soluzione ottima trovata.

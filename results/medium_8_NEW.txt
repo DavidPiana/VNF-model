@@ -3,7 +3,7 @@
  ESECUZIONE TEST: test/medium_8.dat
 ========================================
 
-Tempo di esecuzione: 227.89 secondi
+Tempo di esecuzione: 222.57 secondi
 solve_result: solved
 
 L_max = 22607.43699639999

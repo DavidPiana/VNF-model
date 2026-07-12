@@ -62,3 +62,22 @@ Lo script stampa a video:
 - le assegnazioni domanda → VNF
 - l'instradamento (routing) calcolato per ciascuna domanda
 - la latenza per ciascuna domanda
+
+
+## Installazione e Avvio Rapido
+
+Questo progetto utilizza `uv` per una gestione veloce e riproducibile delle dipendenze.
+
+**1. Installa `uv` (se non l'hai già)**
+*(Su Windows: apri PowerShell come amministratore o esegui questo comando)*:
+```bash
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+**2. Installa le dipendenze**
+```bash
+uv sync
+
+**3. Esegui lo script**
+```bash
+uv run python solve_vnf.py test/medium_8.dat --time-limit 120
+```

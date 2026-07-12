@@ -6,7 +6,7 @@ Installazione richiesta (una tantum):
     python -m amplpy.modules install highs      # solver MILP open-source
 
 codice si esegue con
-python solve_vnf.py test/medium_8.dat --time-limit 120
+uv run solve_vnf.py test/medium_8.dat --time-limit 120 [--out medium_8_results.txt]
 
 """
 

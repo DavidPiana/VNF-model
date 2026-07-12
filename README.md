@@ -76,6 +76,15 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 **2. Installa le dipendenze**
 ```bash
 uv sync
+```
+uv run python -m amplpy.modules install gurobi
+
+
+**3. Attiva la licenza AMPL**
+```bash
+uv run python -m amplpy.modules activate <LICENSE_UUID>
+```
+
 
 **3. Esegui lo script**
 ```bash

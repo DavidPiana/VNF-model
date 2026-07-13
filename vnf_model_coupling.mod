@@ -1,4 +1,6 @@
 # =====================================================================
+# MODELLO BASE ATTUALE: Implementa il filtraggio delle variabili di coupling (OPT-2)
+# per massimizzare le performance riducendo drasticamente il numero di vincoli generati.
 #  Model Formulation 3 — with coupling variable filtering (OPT-2)
 #  VNF placement + Service Function Chain routing
 #  Objective: minimize the maximum end-to-end latency (Lmax)

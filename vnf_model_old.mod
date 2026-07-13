@@ -1,4 +1,5 @@
 # =====================================================================
+# MODELLO SUPERATO: Modello base originale con "Big-M" globale.
 #  Model Formulation 3
 #  VNF placement + Service Function Chain routing
 #  Objective: minimize the maximum end-to-end latency (Lmax)

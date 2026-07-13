@@ -1,0 +1,190 @@
+
+========================================
+ ESECUZIONE TEST: test/medium_8.dat
+========================================
+
+Tempo di esecuzione: 125.52 secondi
+solve_result: limit
+
+--- LIMITE DI TEMPO (120s) RAGGIUNTO ---
+Migliore soluzione (Upper Bound): 22992.15899639997
+Migliore lower bound: 22607.43699639998
+
+L_max = 22992.15899639997
+
+--- Installazioni VNF (y_if = 1) ---
+  VNF F2 installata sul nodo bn1
+  VNF F3 installata sul nodo bn1
+  VNF F4 installata sul nodo bn1
+  VNF F2 installata sul nodo bn2
+  VNF F3 installata sul nodo bn2
+  VNF F4 installata sul nodo bn2
+  VNF F2 installata sul nodo bn3
+  VNF F3 installata sul nodo bn3
+  VNF F4 installata sul nodo bn3
+  VNF F3 installata sul nodo bn4
+  VNF F4 installata sul nodo bn4
+  VNF F3 installata sul nodo bn5
+  VNF F4 installata sul nodo bn5
+  VNF F3 installata sul nodo bn6
+  VNF F4 installata sul nodo bn6
+  VNF F1 installata sul nodo cn1
+  VNF F1 installata sul nodo cn10
+  VNF F1 installata sul nodo cn11
+  VNF F2 installata sul nodo cn11
+  VNF F3 installata sul nodo cn11
+  VNF F1 installata sul nodo cn12
+  VNF F2 installata sul nodo cn12
+  VNF F3 installata sul nodo cn12
+  VNF F1 installata sul nodo cn2
+  VNF F2 installata sul nodo cn2
+  VNF F3 installata sul nodo cn2
+  VNF F1 installata sul nodo cn3
+  VNF F2 installata sul nodo cn3
+  VNF F3 installata sul nodo cn3
+  VNF F1 installata sul nodo cn4
+  VNF F2 installata sul nodo cn4
+  VNF F3 installata sul nodo cn4
+  VNF F1 installata sul nodo cn5
+  VNF F2 installata sul nodo cn5
+  VNF F1 installata sul nodo cn6
+  VNF F2 installata sul nodo cn6
+  VNF F3 installata sul nodo cn6
+  VNF F2 installata sul nodo cn7
+  VNF F3 installata sul nodo cn7
+  VNF F2 installata sul nodo cn8
+  VNF F3 installata sul nodo cn8
+  VNF F1 installata sul nodo cn9
+  VNF F1 installata sul nodo en1
+  VNF F2 installata sul nodo en1
+  VNF F1 installata sul nodo en10
+  VNF F1 installata sul nodo en11
+  VNF F2 installata sul nodo en11
+  VNF F2 installata sul nodo en13
+  VNF F2 installata sul nodo en15
+  VNF F1 installata sul nodo en16
+  VNF F2 installata sul nodo en16
+  VNF F2 installata sul nodo en17
+  VNF F1 installata sul nodo en18
+  VNF F2 installata sul nodo en18
+  VNF F1 installata sul nodo en19
+  VNF F1 installata sul nodo en2
+  VNF F2 installata sul nodo en20
+  VNF F1 installata sul nodo en23
+  VNF F1 installata sul nodo en24
+  VNF F2 installata sul nodo en24
+  VNF F1 installata sul nodo en3
+  VNF F2 installata sul nodo en3
+  VNF F1 installata sul nodo en4
+  VNF F2 installata sul nodo en4
+  VNF F1 installata sul nodo en5
+  VNF F2 installata sul nodo en5
+  VNF F2 installata sul nodo en6
+  VNF F1 installata sul nodo en7
+  VNF F2 installata sul nodo en7
+  VNF F1 installata sul nodo en8
+  VNF F2 installata sul nodo en8
+
+--- Assegnazioni domanda->VNF (z_if^k = 1) ---
+  Domanda ds1: usa VNF F3 sul nodo bn4
+  Domanda ds1: usa VNF F4 sul nodo bn4
+  Domanda ds1: usa VNF F2 sul nodo cn2
+  Domanda ds1: usa VNF F1 sul nodo en1
+  Domanda ds2: usa VNF F4 sul nodo bn2
+  Domanda ds2: usa VNF F1 sul nodo cn4
+  Domanda ds2: usa VNF F2 sul nodo cn4
+  Domanda ds2: usa VNF F3 sul nodo cn4
+  Domanda ds3: usa VNF F4 sul nodo bn2
+  Domanda ds3: usa VNF F1 sul nodo cn3
+  Domanda ds3: usa VNF F2 sul nodo cn3
+  Domanda ds3: usa VNF F3 sul nodo cn3
+  Domanda ds4: usa VNF F3 sul nodo bn2
+  Domanda ds4: usa VNF F4 sul nodo bn2
+  Domanda ds4: usa VNF F2 sul nodo cn3
+  Domanda ds4: usa VNF F1 sul nodo en4
+  Domanda ds5: usa VNF F3 sul nodo bn3
+  Domanda ds5: usa VNF F4 sul nodo bn3
+  Domanda ds5: usa VNF F1 sul nodo en5
+  Domanda ds5: usa VNF F2 sul nodo en5
+  Domanda ds6: usa VNF F4 sul nodo bn2
+  Domanda ds6: usa VNF F1 sul nodo cn6
+  Domanda ds6: usa VNF F2 sul nodo cn6
+  Domanda ds6: usa VNF F3 sul nodo cn6
+  Domanda ds7: usa VNF F3 sul nodo bn4
+  Domanda ds7: usa VNF F4 sul nodo bn4
+  Domanda ds7: usa VNF F2 sul nodo cn3
+  Domanda ds7: usa VNF F1 sul nodo en7
+  Domanda ds8: usa VNF F2 sul nodo bn1
+  Domanda ds8: usa VNF F3 sul nodo bn5
+  Domanda ds8: usa VNF F4 sul nodo bn5
+  Domanda ds8: usa VNF F1 sul nodo en8
+
+--- Routing (x_ij^ks = 1) ---
+  Domanda ds1, subpath 3: arco (bn2 -> k3)
+  Domanda ds1, subpath 5: arco (bn4 -> tau)
+  Domanda ds1, subpath 3: arco (cn2 -> en6)
+  Domanda ds1, subpath 3: arco (cn4 -> bn2)
+  Domanda ds1, subpath 1: arco (ds1 -> en1)
+  Domanda ds1, subpath 2: arco (en1 -> cn2)
+  Domanda ds1, subpath 3: arco (en6 -> cn4)
+  Domanda ds1, subpath 3: arco (k3 -> bn4)
+  Domanda ds2, subpath 5: arco (bn2 -> tau)
+  Domanda ds2, subpath 1: arco (cn2 -> en5)
+  Domanda ds2, subpath 4: arco (cn4 -> bn2)
+  Domanda ds2, subpath 1: arco (ds2 -> en2)
+  Domanda ds2, subpath 1: arco (en2 -> cn2)
+  Domanda ds2, subpath 1: arco (en5 -> cn4)
+  Domanda ds3, subpath 5: arco (bn2 -> tau)
+  Domanda ds3, subpath 4: arco (cn3 -> en5)
+  Domanda ds3, subpath 4: arco (cn4 -> bn2)
+  Domanda ds3, subpath 1: arco (ds3 -> en3)
+  Domanda ds3, subpath 1: arco (en3 -> cn3)
+  Domanda ds3, subpath 4: arco (en5 -> cn4)
+  Domanda ds4, subpath 5: arco (bn2 -> tau)
+  Domanda ds4, subpath 3: arco (cn3 -> en6)
+  Domanda ds4, subpath 3: arco (cn4 -> bn2)
+  Domanda ds4, subpath 1: arco (ds4 -> en4)
+  Domanda ds4, subpath 2: arco (en4 -> cn3)
+  Domanda ds4, subpath 3: arco (en6 -> cn4)
+  Domanda ds5, subpath 3: arco (bn2 -> k1)
+  Domanda ds5, subpath 5: arco (bn3 -> tau)
+  Domanda ds5, subpath 3: arco (cn4 -> bn2)
+  Domanda ds5, subpath 1: arco (ds5 -> en5)
+  Domanda ds5, subpath 3: arco (en5 -> cn4)
+  Domanda ds5, subpath 3: arco (k1 -> bn3)
+  Domanda ds6, subpath 5: arco (bn2 -> tau)
+  Domanda ds6, subpath 1: arco (cn3 -> en8)
+  Domanda ds6, subpath 4: arco (cn4 -> bn2)
+  Domanda ds6, subpath 1: arco (cn5 -> en10)
+  Domanda ds6, subpath 4: arco (cn6 -> en9)
+  Domanda ds6, subpath 1: arco (ds6 -> en6)
+  Domanda ds6, subpath 1: arco (en10 -> cn6)
+  Domanda ds6, subpath 1: arco (en6 -> cn3)
+  Domanda ds6, subpath 1: arco (en8 -> cn5)
+  Domanda ds6, subpath 4: arco (en9 -> cn4)
+  Domanda ds7, subpath 3: arco (bn2 -> k2)
+  Domanda ds7, subpath 5: arco (bn4 -> tau)
+  Domanda ds7, subpath 3: arco (cn3 -> en6)
+  Domanda ds7, subpath 3: arco (cn4 -> bn2)
+  Domanda ds7, subpath 1: arco (ds7 -> en7)
+  Domanda ds7, subpath 3: arco (en6 -> cn4)
+  Domanda ds7, subpath 2: arco (en7 -> cn3)
+  Domanda ds7, subpath 3: arco (k2 -> bn4)
+  Domanda ds8, subpath 3: arco (bn1 -> k2)
+  Domanda ds8, subpath 2: arco (bn2 -> k3)
+  Domanda ds8, subpath 5: arco (bn5 -> tau)
+  Domanda ds8, subpath 2: arco (cn4 -> bn2)
+  Domanda ds8, subpath 1: arco (ds8 -> en8)
+  Domanda ds8, subpath 2: arco (en8 -> cn4)
+  Domanda ds8, subpath 3: arco (k2 -> bn5)
+  Domanda ds8, subpath 2: arco (k3 -> bn1)
+
+--- Latenza per domanda ---
+  Domanda ds1: L = 22722.82159639999
+  Domanda ds2: L = 22621.11799639999
+  Domanda ds3: L = 22603.76902119999
+  Domanda ds4: L = 22577.3150212
+  Domanda ds5: L = 22904.86999679997
+  Domanda ds6: L = 22992.1589964
+  Domanda ds7: L = 22739.3981336
+  Domanda ds8: L = 22931.8899968

@@ -167,6 +167,10 @@ subject to CapF2 {i in N: alpha[i,'F2'] = 1}:
 subject to TrainingTarget {i in N: alpha[i,'F2'] = 1}:
     T[i,'F2'] <= T_target;
 
+# (18) massimo 3 nodi AIF per F4
+subject to MaxNodesF4:
+    sum {i in N: alpha[i,'F4'] = 1} y[i,'F4'] <= 3;
+
 # Housekeeping: pin unused T / Theta to zero where alpha = 0
 subject to TZero {i in N, f in F: alpha[i,f] = 0}:
     T[i,f] = 0;

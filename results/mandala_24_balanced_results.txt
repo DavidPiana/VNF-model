@@ -1,0 +1,8 @@
+
+========================================
+ ESECUZIONE TEST: test/mandala_24_balanced.dat
+========================================
+
+Tempo di esecuzione: 0.09 secondi
+solve_result: ?
+Nessuna soluzione ottima trovata.

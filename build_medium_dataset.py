@@ -9,8 +9,8 @@ delay, sigma, gamma, q, capArc, TAUNODE).
 
 USO
 ---
-Sintassi:
-    python build_medium_dataset.py --clients {48,96} --topology {balanced,inst1} [--num-clients N] --out PATH
+Uso:
+    python build_medium_dataset.py --clients {48,96} --topology {balanced,inst1} [--num-clients N] [--start-client M] --out PATH
 
 Esempi:
     python build_medium_dataset.py --clients 48 --topology balanced --out test/medium_48_balanced.dat
@@ -135,7 +135,7 @@ ALPHA_LEVELS = {
 # --------------------------------------------------------------------------
 
 
-def build(clients: int, topology: str, num_clients: int | None):
+def build(clients: int, topology: str, num_clients: int | None, start_client: int = 1):
     inside = (DATA_DIR / "inside_topology.dat").read_text()
     V_EN = parse_set(inside, "V_EN")
     V_CN = parse_set(inside, "V_CN")
@@ -154,7 +154,8 @@ def build(clients: int, topology: str, num_clients: int | None):
     A0_all = parse_arc_set(topo, "A0")
 
     if num_clients is not None:
-        DS = DS_all[:num_clients]
+        start_idx = start_client - 1
+        DS = DS_all[start_idx : start_idx + num_clients]
         ds_set = set(DS)
         A0 = [(a, b) for a, b in A0_all if a in ds_set]
     else:
@@ -313,14 +314,18 @@ def main():
     ap.add_argument("--topology", choices=["balanced", "inst1"], required=True,
                      help="Variante di topologia")
     ap.add_argument("--num-clients", type=int, default=None,
-                     help="Limita ai primi N client (per test incrementali). Default: tutti.")
+                     help="Limita a N client (per test incrementali). Default: tutti.")
+    ap.add_argument("--start-client", type=int, default=1,
+                     help="Indice (1-based) da cui partire per selezionare i client. Default: 1.")
     ap.add_argument("--out", type=Path, required=True, help="Percorso file .dat di output")
     args = ap.parse_args()
 
-    data = build(args.clients, args.topology, args.num_clients)
+    data = build(args.clients, args.topology, args.num_clients, args.start_client)
     label = f"{args.clients}clients_{args.topology}"
     if args.num_clients:
-        label += f"_first{args.num_clients}"
+        label += f"_N{args.num_clients}"
+        if args.start_client > 1:
+            label += f"_start{args.start_client}"
     write_dat(data, args.out, label)
 
 

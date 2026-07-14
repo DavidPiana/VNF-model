@@ -26,9 +26,11 @@ schema lineare attuale — vanno validate/riviste se poi si vuole
 rappresentare fedelmente il costo a coda delle funzioni 5G Core):
 
   N        = DS (client) U V_EN U V_CN U V_BN U K
-  A        = A0 U A1 U A2 U A4, resi bidirezionali (arco di ritorno
-             con lo stesso delay), esclusi i self-loop (A_ee/A_cc/A_bb,
-             che nel modello attuale non hanno alcun ruolo funzionale)
+  A        = A0 (unidirezionali DS→EN) U A1 U A2 U A4 (bidirezionali,
+             arco di ritorno con lo stesso delay), esclusi i self-loop
+             (A_ee/A_cc/A_bb). Gli archi DS→EN sono unilaterali perché
+             i nodi DS sono solo origini di flusso: l'arco inverso
+             EN→DS sarebbe strutturalmente inutilizzabile.
   delay    = bd + fd sommati per gli archi EN-CN/CN-BN (i due file sono
              complementari: fd copre EN-CN, bd copre CN-BN); 0 per i
              tratti DS-EN e BN-K, per cui DataMedium non fornisce dati
@@ -185,10 +187,18 @@ def build(clients: int, topology: str, num_clients: int | None, start_client: in
     def seg_delay(a, b):
         return bd.get((a, b), 0.0) + fd.get((a, b), 0.0)
 
-    A_all = list(A0) + A1 + A2 + list(A4)
     delay = {}
     A = []
-    for a, b in A_all:
+
+    # archi A0 (DS → EN): solo direzione DS→EN, nessun arco di ritorno
+    # (i nodi DS sono solo origini di flusso, l'arco inverso EN→DS è
+    #  strutturalmente inutilizzabile e genera variabili/vincoli inutili)
+    for a, b in A0:
+        A.append((a, b))
+        delay[(a, b)] = seg_delay(a, b)
+
+    # archi interni (A1, A2, A4): bidirezionali
+    for a, b in A1 + A2 + list(A4):
         d = seg_delay(a, b)
         A.append((a, b))
         A.append((b, a))

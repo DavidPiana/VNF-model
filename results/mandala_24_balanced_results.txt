@@ -3,6 +3,67 @@
  ESECUZIONE TEST: test/mandala_24_balanced.dat
 ========================================
 
-Tempo di esecuzione: 0.09 secondi
-solve_result: ?
-Nessuna soluzione ottima trovata.
+Tempo di esecuzione: 38.67 secondi
+solve_result: limit
+
+--- LIMITE DI TEMPO (30s) RAGGIUNTO ---
+Migliore soluzione (Upper Bound): 0
+Migliore lower bound: 0
+
+L_max = 0
+
+--- Installazioni VNF (y_if = 1) ---
+
+--- Assegnazioni domanda->VNF (z_if^k = 1) ---
+
+--- Routing (x_ij^ks = 1) ---
+  Domanda ds1, subpath 1: arco (ds1 -> en1)
+  Domanda ds10, subpath 1: arco (ds10 -> en10)
+  Domanda ds11, subpath 1: arco (ds11 -> en11)
+  Domanda ds12, subpath 1: arco (ds12 -> en12)
+  Domanda ds13, subpath 1: arco (ds13 -> en13)
+  Domanda ds14, subpath 1: arco (ds14 -> en14)
+  Domanda ds15, subpath 1: arco (ds15 -> en15)
+  Domanda ds16, subpath 1: arco (ds16 -> en16)
+  Domanda ds17, subpath 1: arco (ds17 -> en17)
+  Domanda ds18, subpath 1: arco (ds18 -> en18)
+  Domanda ds19, subpath 1: arco (ds19 -> en19)
+  Domanda ds2, subpath 1: arco (ds2 -> en2)
+  Domanda ds20, subpath 1: arco (ds20 -> en20)
+  Domanda ds21, subpath 1: arco (ds21 -> en21)
+  Domanda ds22, subpath 1: arco (ds22 -> en22)
+  Domanda ds23, subpath 1: arco (ds23 -> en23)
+  Domanda ds24, subpath 1: arco (ds24 -> en24)
+  Domanda ds3, subpath 1: arco (ds3 -> en3)
+  Domanda ds4, subpath 1: arco (ds4 -> en4)
+  Domanda ds5, subpath 1: arco (ds5 -> en5)
+  Domanda ds6, subpath 1: arco (ds6 -> en6)
+  Domanda ds7, subpath 1: arco (ds7 -> en7)
+  Domanda ds8, subpath 1: arco (ds8 -> en8)
+  Domanda ds9, subpath 1: arco (ds9 -> en9)
+
+--- Latenza per domanda ---
+  Domanda ds1: L = 0
+  Domanda ds10: L = 0
+  Domanda ds11: L = 0
+  Domanda ds12: L = 0
+  Domanda ds13: L = 0
+  Domanda ds14: L = 0
+  Domanda ds15: L = 0
+  Domanda ds16: L = 0
+  Domanda ds17: L = 0
+  Domanda ds18: L = 0
+  Domanda ds19: L = 0
+  Domanda ds2: L = 0
+  Domanda ds20: L = 0
+  Domanda ds21: L = 0
+  Domanda ds22: L = 0
+  Domanda ds23: L = 0
+  Domanda ds24: L = 0
+  Domanda ds3: L = 0
+  Domanda ds4: L = 0
+  Domanda ds5: L = 0
+  Domanda ds6: L = 0
+  Domanda ds7: L = 0
+  Domanda ds8: L = 0
+  Domanda ds9: L = 0

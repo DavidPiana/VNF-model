@@ -16,7 +16,7 @@ param chain :=
 
 param TAUNODE := tau;
 param o :=
-ds1 ds2 ds3 ds4 ds5 ds6 ds7 ds8 ds9 ds10 ds11 ds12;
+ds1 ds1 ds2 ds2 ds3 ds3 ds4 ds4 ds5 ds5 ds6 ds6 ds7 ds7 ds8 ds8 ds9 ds9 ds10 ds10 ds11 ds11 ds12 ds12 ds13 ds13 ds14 ds14 ds15 ds15 ds16 ds16 ds17 ds17 ds18 ds18 ds19 ds19 ds20 ds20 ds21 ds21 ds22 ds22 ds23 ds23 ds24 ds24;
 
 param alpha:  F1  F2  F3  F4 :=
 ds1  0  0  0  0

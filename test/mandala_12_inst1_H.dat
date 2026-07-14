@@ -1,0 +1,101 @@
+data;
+
+# Generato da build_medium_dataset.py a partire da DataMedium/ (96clients_inst1_N12_start85)
+# DataMedium NON è stato modificato: questo è un file derivato.
+
+set N := ds85 ds86 ds87 ds88 ds89 ds90 ds91 ds92 ds93 ds94 ds95 ds96 en1 en2 en3 en4 en5 en6 en7 en8 en9 en10 en11 en12 en13 en14 en15 en16 en17 en18 en19 en20 en21 en22 en23 en24 cn1 cn2 cn3 cn4 cn5 cn6 cn7 cn8 cn9 cn10 cn11 cn12 bn1 bn2 bn3 bn4 bn5 bn6 k1 k2 k3;
+set A :=
+(ds85,en22) (en22,ds85) (ds86,en9) (en9,ds86) (ds87,en23) (en23,ds87) (ds88,en22) (en22,ds88) (ds89,en21) (en21,ds89) (ds90,en3) (en3,ds90) (ds91,en20) (en20,ds91) (ds92,en21) (en21,ds92) (ds93,en6) (en6,ds93) (ds94,en18) (en18,ds94) (ds95,en24) (en24,ds95) (ds96,en8) (en8,ds96) (en1,cn1) (cn1,en1) (en1,cn12) (cn12,en1) (en1,cn2) (cn2,en1) (en2,cn1) (cn1,en2) (en2,cn12) (cn12,en2) (en2,cn2) (cn2,en2) (en3,cn2) (cn2,en3) (en3,cn1) (cn1,en3) (en3,cn3) (cn3,en3) (en4,cn2) (cn2,en4) (en4,cn1) (cn1,en4) (en4,cn3) (cn3,en4) (en5,cn3) (cn3,en5) (en5,cn2) (cn2,en5) (en5,cn4) (cn4,en5) (en6,cn3) (cn3,en6) (en6,cn2) (cn2,en6) (en6,cn4) (cn4,en6) (en7,cn4) (cn4,en7) (en7,cn3) (cn3,en7) (en7,cn5) (cn5,en7) (en8,cn4) (cn4,en8) (en8,cn3) (cn3,en8) (en8,cn5) (cn5,en8) (en9,cn5) (cn5,en9) (en9,cn4) (cn4,en9) (en9,cn6) (cn6,en9) (en10,cn5) (cn5,en10) (en10,cn4) (cn4,en10) (en10,cn6) (cn6,en10) (en11,cn6) (cn6,en11) (en11,cn5) (cn5,en11) (en11,cn7) (cn7,en11) (en12,cn6) (cn6,en12) (en12,cn5) (cn5,en12) (en12,cn7) (cn7,en12) (en13,cn7) (cn7,en13) (en13,cn6) (cn6,en13) (en13,cn8) (cn8,en13) (en14,cn7) (cn7,en14) (en14,cn6) (cn6,en14) (en14,cn8) (cn8,en14) (en15,cn8) (cn8,en15) (en15,cn7) (cn7,en15) (en15,cn9) (cn9,en15) (en16,cn8) (cn8,en16) (en16,cn7) (cn7,en16) (en16,cn9) (cn9,en16) (en17,cn9) (cn9,en17) (en17,cn8) (cn8,en17) (en17,cn10) (cn10,en17) (en18,cn9) (cn9,en18) (en18,cn8) (cn8,en18) (en18,cn10) (cn10,en18) (en19,cn10) (cn10,en19) (en19,cn9) (cn9,en19) (en19,cn11) (cn11,en19) (en20,cn10) (cn10,en20) (en20,cn9) (cn9,en20) (en20,cn11) (cn11,en20) (en21,cn11) (cn11,en21) (en21,cn10) (cn10,en21) (en21,cn12) (cn12,en21) (en22,cn11) (cn11,en22) (en22,cn10) (cn10,en22) (en22,cn12) (cn12,en22) (en23,cn12) (cn12,en23) (en23,cn11) (cn11,en23) (en23,cn1) (cn1,en23) (en24,cn12) (cn12,en24) (en24,cn11) (cn11,en24) (en24,cn1) (cn1,en24) (cn1,bn1) (bn1,cn1) (cn1,bn6) (bn6,cn1) (cn1,bn2) (bn2,cn1) (cn2,bn1) (bn1,cn2) (cn2,bn6) (bn6,cn2) (cn2,bn2) (bn2,cn2) (cn3,bn2) (bn2,cn3) (cn3,bn1) (bn1,cn3) (cn3,bn3) (bn3,cn3) (cn4,bn2) (bn2,cn4) (cn4,bn1) (bn1,cn4) (cn4,bn3) (bn3,cn4) (cn5,bn3) (bn3,cn5) (cn5,bn2) (bn2,cn5) (cn5,bn4) (bn4,cn5) (cn6,bn3) (bn3,cn6) (cn6,bn2) (bn2,cn6) (cn6,bn4) (bn4,cn6) (cn7,bn4) (bn4,cn7) (cn7,bn3) (bn3,cn7) (cn7,bn5) (bn5,cn7) (cn8,bn4) (bn4,cn8) (cn8,bn3) (bn3,cn8) (cn8,bn5) (bn5,cn8) (cn9,bn5) (bn5,cn9) (cn9,bn4) (bn4,cn9) (cn9,bn6) (bn6,cn9) (cn10,bn5) (bn5,cn10) (cn10,bn4) (bn4,cn10) (cn10,bn6) (bn6,cn10) (cn11,bn6) (bn6,cn11) (cn11,bn5) (bn5,cn11) (cn11,bn1) (bn1,cn11) (cn12,bn6) (bn6,cn12) (cn12,bn5) (bn5,cn12) (cn12,bn1) (bn1,cn12) (bn1,k1) (k1,bn1) (bn1,k2) (k2,bn1) (bn1,k3) (k3,bn1) (bn2,k1) (k1,bn2) (bn2,k2) (k2,bn2) (bn2,k3) (k3,bn2) (bn3,k1) (k1,bn3) (bn3,k2) (k2,bn3) (bn3,k3) (k3,bn3) (bn4,k1) (k1,bn4) (bn4,k2) (k2,bn4) (bn4,k3) (k3,bn4) (bn5,k1) (k1,bn5) (bn5,k2) (k2,bn5) (bn5,k3) (k3,bn5) (bn6,k1) (k1,bn6) (bn6,k2) (k2,bn6) (bn6,k3) (k3,bn6);
+
+set D := ds85 ds86 ds87 ds88 ds89 ds90 ds91 ds92 ds93 ds94 ds95 ds96;
+set F := F1 F2 F3 F4;
+
+param n := 4;
+param chain :=
+1 F1 2 F2 3 F3 4 F4;
+
+param TAUNODE := tau;
+param o :=
+ds85 ds85 ds86 ds86 ds87 ds87 ds88 ds88 ds89 ds89 ds90 ds90 ds91 ds91 ds92 ds92 ds93 ds93 ds94 ds94 ds95 ds95 ds96 ds96;
+
+param alpha:  F1  F2  F3  F4 :=
+ds85  0  0  0  0
+ds86  0  0  0  0
+ds87  0  0  0  0
+ds88  0  0  0  0
+ds89  0  0  0  0
+ds90  0  0  0  0
+ds91  0  0  0  0
+ds92  0  0  0  0
+ds93  0  0  0  0
+ds94  0  0  0  0
+ds95  0  0  0  0
+ds96  0  0  0  0
+en1  1  1  0  0
+en2  1  1  0  0
+en3  1  1  0  0
+en4  1  1  0  0
+en5  1  1  0  0
+en6  1  1  0  0
+en7  1  1  0  0
+en8  1  1  0  0
+en9  1  1  0  0
+en10  1  1  0  0
+en11  1  1  0  0
+en12  1  1  0  0
+en13  1  1  0  0
+en14  1  1  0  0
+en15  1  1  0  0
+en16  1  1  0  0
+en17  1  1  0  0
+en18  1  1  0  0
+en19  1  1  0  0
+en20  1  1  0  0
+en21  1  1  0  0
+en22  1  1  0  0
+en23  1  1  0  0
+en24  1  1  0  0
+cn1  1  1  1  0
+cn2  1  1  1  0
+cn3  1  1  1  0
+cn4  1  1  1  0
+cn5  1  1  1  0
+cn6  1  1  1  0
+cn7  1  1  1  0
+cn8  1  1  1  0
+cn9  1  1  1  0
+cn10  1  1  1  0
+cn11  1  1  1  0
+cn12  1  1  1  0
+bn1  0  1  1  1
+bn2  0  1  1  1
+bn3  0  1  1  1
+bn4  0  1  1  1
+bn5  0  1  1  1
+bn6  0  1  1  1
+k1  0  0  0  0
+k2  0  0  0  0
+k3  0  0  0  0;
+
+param delay :=
+[ds85,en22] 0.0000 [en22,ds85] 0.0000 [ds86,en9] 0.0000 [en9,ds86] 0.0000 [ds87,en23] 0.0000 [en23,ds87] 0.0000 [ds88,en22] 0.0000 [en22,ds88] 0.0000 [ds89,en21] 0.0000 [en21,ds89] 0.0000 [ds90,en3] 0.0000 [en3,ds90] 0.0000 [ds91,en20] 0.0000 [en20,ds91] 0.0000 [ds92,en21] 0.0000 [en21,ds92] 0.0000 [ds93,en6] 0.0000 [en6,ds93] 0.0000 [ds94,en18] 0.0000 [en18,ds94] 0.0000 [ds95,en24] 0.0000 [en24,ds95] 0.0000 [ds96,en8] 0.0000 [en8,ds96] 0.0000 [en1,cn1] 132.6250 [cn1,en1] 132.6250 [en1,cn12] 164.7470 [cn12,en1] 164.7470 [en1,cn2] 112.2350 [cn2,en1] 112.2350 [en2,cn1] 133.9410 [cn1,en2] 133.9410 [en2,cn12] 123.8050 [cn12,en2] 123.8050 [en2,cn2] 93.7920 [cn2,en2] 93.7920 [en3,cn2] 148.3700 [cn2,en3] 148.3700 [en3,cn1] 85.8250 [cn1,en3] 85.8250 [en3,cn3] 93.9070 [cn3,en3] 93.9070 [en4,cn2] 141.1300 [cn2,en4] 141.1300 [en4,cn1] 105.6400 [cn1,en4] 105.6400 [en4,cn3] 95.2340 [cn3,en4] 95.2340 [en5,cn3] 79.3510 [cn3,en5] 79.3510 [en5,cn2] 122.4560 [cn2,en5] 122.4560 [en5,cn4] 106.7580 [cn4,en5] 106.7580 [en6,cn3] 53.1210 [cn3,en6] 53.1210 [en6,cn2] 91.8830 [cn2,en6] 91.8830 [en6,cn4] 105.2070 [cn4,en6] 105.2070 [en7,cn4] 108.0560 [cn4,en7] 108.0560 [en7,cn3] 129.1120 [cn3,en7] 129.1120 [en7,cn5] 149.5870 [cn5,en7] 149.5870 [en8,cn4] 133.7780 [cn4,en8] 133.7780 [en8,cn3] 116.6770 [cn3,en8] 116.6770 [en8,cn5] 87.1100 [cn5,en8] 87.1100 [en9,cn5] 143.0270 [cn5,en9] 143.0270 [en9,cn4] 93.8920 [cn4,en9] 93.8920 [en9,cn6] 145.2360 [cn6,en9] 145.2360 [en10,cn5] 76.5940 [cn5,en10] 76.5940 [en10,cn4] 120.4080 [cn4,en10] 120.4080 [en10,cn6] 121.4170 [cn6,en10] 121.4170 [en11,cn6] 107.1310 [cn6,en11] 107.1310 [en11,cn5] 187.0050 [cn5,en11] 187.0050 [en11,cn7] 96.0850 [cn7,en11] 96.0850 [en12,cn6] 138.6930 [cn6,en12] 138.6930 [en12,cn5] 107.1780 [cn5,en12] 107.1780 [en12,cn7] 112.8100 [cn7,en12] 112.8100 [en13,cn7] 115.2170 [cn7,en13] 115.2170 [en13,cn6] 130.2450 [cn6,en13] 130.2450 [en13,cn8] 108.7260 [cn8,en13] 108.7260 [en14,cn7] 149.5480 [cn7,en14] 149.5480 [en14,cn6] 128.3600 [cn6,en14] 128.3600 [en14,cn8] 94.2060 [cn8,en14] 94.2060 [en15,cn8] 56.4710 [cn8,en15] 56.4710 [en15,cn7] 89.3820 [cn7,en15] 89.3820 [en15,cn9] 101.2660 [cn9,en15] 101.2660 [en16,cn8] 114.8870 [cn8,en16] 114.8870 [en16,cn7] 138.4040 [cn7,en16] 138.4040 [en16,cn9] 66.1300 [cn9,en16] 66.1300 [en17,cn9] 104.3580 [cn9,en17] 104.3580 [en17,cn8] 157.0770 [cn8,en17] 157.0770 [en17,cn10] 143.9840 [cn10,en17] 143.9840 [en18,cn9] 87.1750 [cn9,en18] 87.1750 [en18,cn8] 117.8510 [cn8,en18] 117.8510 [en18,cn10] 112.1810 [cn10,en18] 112.1810 [en19,cn10] 140.2530 [cn10,en19] 140.2530 [en19,cn9] 142.1370 [cn9,en19] 142.1370 [en19,cn11] 106.8760 [cn11,en19] 106.8760 [en20,cn10] 128.2670 [cn10,en20] 128.2670 [en20,cn9] 171.4020 [cn9,en20] 171.4020 [en20,cn11] 141.9240 [cn11,en20] 141.9240 [en21,cn11] 124.0610 [cn11,en21] 124.0610 [en21,cn10] 127.2080 [cn10,en21] 127.2080 [en21,cn12] 96.2140 [cn12,en21] 96.2140 [en22,cn11] 122.7120 [cn11,en22] 122.7120 [en22,cn10] 133.7060 [cn10,en22] 133.7060 [en22,cn12] 91.6330 [cn12,en22] 91.6330 [en23,cn12] 110.8690 [cn12,en23] 110.8690 [en23,cn11] 145.9360 [cn11,en23] 145.9360 [en23,cn1] 123.3940 [cn1,en23] 123.3940 [en24,cn12] 111.5860 [cn12,en24] 111.5860 [en24,cn11] 80.5150 [cn11,en24] 80.5150 [en24,cn1] 152.7040 [cn1,en24] 152.7040 [cn1,bn1] 36445.5830 [bn1,cn1] 36445.5830 [cn1,bn6] 47374.7470 [bn6,cn1] 47374.7470 [cn1,bn2] 27870.1470 [bn2,cn1] 27870.1470 [cn2,bn1] 19841.3430 [bn1,cn2] 19841.3430 [cn2,bn6] 17016.0570 [bn6,cn2] 17016.0570 [cn2,bn2] 30121.7660 [bn2,cn2] 30121.7660 [cn3,bn2] 41372.2860 [bn2,cn3] 41372.2860 [cn3,bn1] 18454.7130 [bn1,cn3] 18454.7130 [cn3,bn3] 24001.6020 [bn3,cn3] 24001.6020 [cn4,bn2] 15798.1120 [bn2,cn4] 15798.1120 [cn4,bn1] 22642.3460 [bn1,cn4] 22642.3460 [cn4,bn3] 28913.9770 [bn3,cn4] 28913.9770 [cn5,bn3] 20724.0650 [bn3,cn5] 20724.0650 [cn5,bn2] 49103.6450 [bn2,cn5] 49103.6450 [cn5,bn4] 23523.4900 [bn4,cn5] 23523.4900 [cn6,bn3] 21834.2800 [bn3,cn6] 21834.2800 [cn6,bn2] 60498.3280 [bn2,cn6] 60498.3280 [cn6,bn4] 34987.4190 [bn4,cn6] 34987.4190 [cn7,bn4] 20849.6650 [bn4,cn7] 20849.6650 [cn7,bn3] 29951.2440 [bn3,cn7] 29951.2440 [cn7,bn5] 37668.5280 [bn5,cn7] 37668.5280 [cn8,bn4] 26832.3440 [bn4,cn8] 26832.3440 [cn8,bn3] 29031.6460 [bn3,cn8] 29031.6460 [cn8,bn5] 30449.1250 [bn5,cn8] 30449.1250 [cn9,bn5] 37581.1410 [bn5,cn9] 37581.1410 [cn9,bn4] 22009.4280 [bn4,cn9] 22009.4280 [cn9,bn6] 18856.6940 [bn6,cn9] 18856.6940 [cn10,bn5] 29923.6760 [bn5,cn10] 29923.6760 [cn10,bn4] 23229.9760 [bn4,cn10] 23229.9760 [cn10,bn6] 21460.0010 [bn6,cn10] 21460.0010 [cn11,bn6] 19880.0930 [bn6,cn11] 19880.0930 [cn11,bn5] 30416.4240 [bn5,cn11] 30416.4240 [cn11,bn1] 33853.3740 [bn1,cn11] 33853.3740 [cn12,bn6] 16019.2360 [bn6,cn12] 16019.2360 [cn12,bn5] 21902.7500 [bn5,cn12] 21902.7500 [cn12,bn1] 20666.0410 [bn1,cn12] 20666.0410 [bn1,k1] 0.0000 [k1,bn1] 0.0000 [bn1,k2] 0.0000 [k2,bn1] 0.0000 [bn1,k3] 0.0000 [k3,bn1] 0.0000 [bn2,k1] 0.0000 [k1,bn2] 0.0000 [bn2,k2] 0.0000 [k2,bn2] 0.0000 [bn2,k3] 0.0000 [k3,bn2] 0.0000 [bn3,k1] 0.0000 [k1,bn3] 0.0000 [bn3,k2] 0.0000 [k2,bn3] 0.0000 [bn3,k3] 0.0000 [k3,bn3] 0.0000 [bn4,k1] 0.0000 [k1,bn4] 0.0000 [bn4,k2] 0.0000 [k2,bn4] 0.0000 [bn4,k3] 0.0000 [k3,bn4] 0.0000 [bn5,k1] 0.0000 [k1,bn5] 0.0000 [bn5,k2] 0.0000 [k2,bn5] 0.0000 [bn5,k3] 0.0000 [k3,bn5] 0.0000 [bn6,k1] 0.0000 [k1,bn6] 0.0000 [bn6,k2] 0.0000 [k2,bn6] 0.0000 [bn6,k3] 0.0000 [k3,bn6] 0.0000;
+
+param sigma := F1 384.6154 F2 0.0000 F3 384.6154 F4 0.0000;
+param gamma := F1 115.3846 F2 0.0000 F3 115.3846 F4 0.0000;
+param q     := F1 384.6154 F2 40.0000 F3 769.2308 F4 769.2308;
+
+param dem :=
+ds85 1.6500 ds86 1.6500 ds87 1.6500 ds88 1.6500 ds89 1.6500 ds90 1.6500 ds91 1.6500 ds92 1.6500 ds93 1.6500 ds94 1.6500 ds95 1.6500 ds96 1.6500;
+param capArc := 1;
+
+# Parametri training time F2 (federated learning)
+param c_batch := -102.564103;
+param c_inv_matr :=
+1 230.7692308 2 115.3846154 3 230.7692308;
+param q_batch := 5102.5641;
+param q_inv_matr :=
+1 769.230769 2 384.615384 3 769.230769;
+param lv :=
+en1 1 en2 1 en3 1 en4 1 en5 1 en6 1 en7 1 en8 1 en9 1 en10 1 en11 1 en12 1 en13 1 en14 1 en15 1 en16 1 en17 1 en18 1 en19 1 en20 1 en21 1 en22 1 en23 1 en24 1 cn1 2 cn2 2 cn3 2 cn4 2 cn5 2 cn6 2 cn7 2 cn8 2 cn9 2 cn10 2 cn11 2 cn12 2 bn1 3 bn2 3 bn3 3 bn4 3 bn5 3 bn6 3;
+param T_target := 5000000;
+param DS_max := 40;

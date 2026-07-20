@@ -118,12 +118,19 @@ def build(num_demands: int | None):
         dem[ds_id] = tt
         A0.append((ds_id, src))
         
-    # Costruisci N e A
+    # Costruisci N e A — de-duplica archi dalla topologia
+    seen_arcs = set()
+    A_dedup = []
+    for a, b in A_links:
+        if (a, b) not in seen_arcs:
+            seen_arcs.add((a, b))
+            A_dedup.append((a, b))
+
     N = DS + V
-    A = A_links + A0
+    A = A_dedup + A0
     
     delay = {}
-    for a, b in A_links:
+    for a, b in A_dedup:
         delay[(a, b)] = delay_data.get((a, b), 0.0)
     for a, b in A0:
         delay[(a, b)] = 0.0
@@ -159,10 +166,7 @@ def write_dat(data, out_path: Path):
     lines.append("")
     lines.append(f"set N := {' '.join(data['N'])};")
     lines.append("set A :=")
-    
-    for a, b in data["A"]:
-        lines.append(f"  ({a},{b})")
-    lines[-1] += ";"
+    lines.append(" ".join(f"({a},{b})" for a, b in data["A"]) + ";")
     lines.append("")
     
     lines.append(f"set D := {' '.join(data['D'])};")
@@ -171,25 +175,23 @@ def write_dat(data, out_path: Path):
     
     lines.append(f"param n := {len(data['F'])};")
     lines.append("param chain :=")
-    lines.append("  " + " ".join(f"{s} {f}" for s, f in data["chain"].items()) + ";")
+    lines.append(" ".join(f"{s} {f}" for s, f in data["chain"].items()) + ";")
     lines.append("")
     
     lines.append("param TAUNODE := tau;")
     lines.append("param o :=")
-    lines.append("  " + " ".join(f"{k} {v}" for k, v in data["o"].items()) + ";")
+    lines.append(" ".join(f"{k} {v}" for k, v in data["o"].items()) + ";")
     lines.append("")
     
     lines.append("param alpha:  " + "  ".join(data["F"]) + " :=")
     for i in data["N"]:
         row = "  ".join(str(data["alpha_val"](i, f)) for f in data["F"])
-        lines.append(f"  {i}  {row}")
+        lines.append(f"{i}  {row}")
     lines[-1] += ";"
     lines.append("")
     
     lines.append("param delay :=")
-    for a, b in data["A"]:
-        lines.append(f"  [{a},{b}] {data['delay'][(a,b)]:.4f}")
-    lines[-1] += ";"
+    lines.append(" ".join(f"[{a},{b}] {data['delay'][(a,b)]:.4f}" for a, b in data["A"]) + ";")
     lines.append("")
     
     lines.append("param sigma := " + " ".join(f"{f} {data['sigma'][f]:.4f}" for f in data["F"]) + ";")
@@ -198,19 +200,19 @@ def write_dat(data, out_path: Path):
     lines.append("")
     
     lines.append("param dem :=")
-    lines.append("  " + " ".join(f"{k} {v:.4f}" for k, v in data["dem"].items()) + ";")
+    lines.append(" ".join(f"{k} {v:.4f}" for k, v in data["dem"].items()) + ";")
     lines.append("param capArc := 1;")
     lines.append("")
     
     lines.append(f"param c_batch := {data['c_batch']:.10g};")
     lines.append("param c_inv_matr :=")
-    lines.append("  " + " ".join(f"{k} {v:.10g}" for k, v in sorted(data["c_inv_matr"].items())) + ";")
+    lines.append(" ".join(f"{k} {v:.10g}" for k, v in sorted(data["c_inv_matr"].items())) + ";")
     lines.append(f"param q_batch := {data['q_batch']:.10g};")
     lines.append("param q_inv_matr :=")
-    lines.append("  " + " ".join(f"{k} {v:.10g}" for k, v in sorted(data["q_inv_matr"].items())) + ";")
+    lines.append(" ".join(f"{k} {v:.10g}" for k, v in sorted(data["q_inv_matr"].items())) + ";")
     
     lines.append("param lv :=")
-    lines.append("  " + " ".join(f"{node} {level}" for node, level in data["lv"].items()) + ";")
+    lines.append(" ".join(f"{node} {level}" for node, level in data["lv"].items()) + ";")
     lines.append(f"param T_target := {data['T_target']:.10g};")
     lines.append(f"param DS_max := {data['DS_max']:.10g};")
     lines.append("")

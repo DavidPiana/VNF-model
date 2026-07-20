@@ -68,7 +68,7 @@ def parse_sndlib_demands(text):
         demands.append((did, src, tgt, val))
     return demands
 
-def build(num_demands: int | None):
+def build(num_demands: int | None, start_demand: int = 0):
     # Leggi topologia
     inside = (DATA_DIR / "inside_topology_France").read_text()
     V = parse_set(inside, "V")
@@ -102,7 +102,7 @@ def build(num_demands: int | None):
     valid_demands = [d for d in all_demands if d[1] not in AIF]
     
     if num_demands is not None:
-        valid_demands = valid_demands[:num_demands]
+        valid_demands = valid_demands[start_demand:start_demand + num_demands]
         
     D = []
     DS = []
@@ -224,10 +224,11 @@ def write_dat(data, out_path: Path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--num-demands", type=int, default=None)
+    parser.add_argument("--start-demand", type=int, default=0)
     parser.add_argument("--out", type=str, required=True)
     args = parser.parse_args()
     
-    data = build(num_demands=args.num_demands)
+    data = build(num_demands=args.num_demands, start_demand=args.start_demand)
     write_dat(data, Path(args.out))
 
 if __name__ == "__main__":

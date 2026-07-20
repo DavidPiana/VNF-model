@@ -1,0 +1,14 @@
+param DS_max := 40;
+
+param c_queue := 115.3846154;
+param c_batch := -102.564103;
+param c_inv_matr := 
+	1	230.7692308
+	2	115.3846154
+	3	230.7692308;
+param q_queue := 384.615385;
+param q_batch := 5102.5641;
+param q_inv_matr := 
+	1	769.230769
+	2	384.615384
+	3	769.230769;

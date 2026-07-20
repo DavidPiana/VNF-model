@@ -1,0 +1,8 @@
+
+========================================
+ ESECUZIONE TEST: test/mandala/france_inst1.dat
+========================================
+
+Tempo di esecuzione: 0.11 secondi
+solve_result: ?
+Nessuna soluzione ottima trovata.

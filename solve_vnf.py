@@ -22,7 +22,7 @@ ampl = AMPL()
 parser = argparse.ArgumentParser(description="Risolve il modello AMPL (Model Formulation 3) con amplpy.")
 parser.add_argument("data_file", help="Percorso del file dati da risolvere")
 parser.add_argument("--time-limit", type=int, default=120, dest="time_limit", help="Limite di tempo in secondi per il solver")
-parser.add_argument("--model", type=str, default="vnf_model.mod", help="File del modello AMPL (default: vnf_model.mod)")
+parser.add_argument("--model", type=str, default="models/vnf_model.mod", help="File del modello AMPL (default: models/vnf_model_coupling.mod)")
 parser.add_argument("--out", type=str, default=None, help="Percorso del file di risultati (opzionale)")
 args = parser.parse_args()
 

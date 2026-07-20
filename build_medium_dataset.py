@@ -9,8 +9,8 @@ delay, sigma, gamma, q, capArc, TAUNODE).
 
 USO
 ---
-Sintassi:
-    python build_medium_dataset.py --clients {48,96} --topology {balanced,inst1} [--num-clients N] --out PATH
+Uso:
+    python build_medium_dataset.py --clients {48,96} --topology {balanced,inst1} [--num-clients N] [--start-client M] --out PATH
 
 Esempi:
     python build_medium_dataset.py --clients 48 --topology balanced --out test/medium_48_balanced.dat
@@ -26,9 +26,11 @@ schema lineare attuale — vanno validate/riviste se poi si vuole
 rappresentare fedelmente il costo a coda delle funzioni 5G Core):
 
   N        = DS (client) U V_EN U V_CN U V_BN U K
-  A        = A0 U A1 U A2 U A4, resi bidirezionali (arco di ritorno
-             con lo stesso delay), esclusi i self-loop (A_ee/A_cc/A_bb,
-             che nel modello attuale non hanno alcun ruolo funzionale)
+  A        = A0 (unidirezionali DS→EN) U A1 U A2 U A4 (bidirezionali,
+             arco di ritorno con lo stesso delay), esclusi i self-loop
+             (A_ee/A_cc/A_bb). Gli archi DS→EN sono unilaterali perché
+             i nodi DS sono solo origini di flusso: l'arco inverso
+             EN→DS sarebbe strutturalmente inutilizzabile.
   delay    = bd + fd sommati per gli archi EN-CN/CN-BN (i due file sono
              complementari: fd copre EN-CN, bd copre CN-BN); 0 per i
              tratti DS-EN e BN-K, per cui DataMedium non fornisce dati
@@ -135,7 +137,7 @@ ALPHA_LEVELS = {
 # --------------------------------------------------------------------------
 
 
-def build(clients: int, topology: str, num_clients: int | None):
+def build(clients: int, topology: str, num_clients: int | None, start_client: int = 1):
     inside = (DATA_DIR / "inside_topology.dat").read_text()
     V_EN = parse_set(inside, "V_EN")
     V_CN = parse_set(inside, "V_CN")
@@ -154,7 +156,8 @@ def build(clients: int, topology: str, num_clients: int | None):
     A0_all = parse_arc_set(topo, "A0")
 
     if num_clients is not None:
-        DS = DS_all[:num_clients]
+        start_idx = start_client - 1
+        DS = DS_all[start_idx : start_idx + num_clients]
         ds_set = set(DS)
         A0 = [(a, b) for a, b in A0_all if a in ds_set]
     else:
@@ -184,10 +187,18 @@ def build(clients: int, topology: str, num_clients: int | None):
     def seg_delay(a, b):
         return bd.get((a, b), 0.0) + fd.get((a, b), 0.0)
 
-    A_all = list(A0) + A1 + A2 + list(A4)
     delay = {}
     A = []
-    for a, b in A_all:
+
+    # archi A0 (DS → EN): solo direzione DS→EN, nessun arco di ritorno
+    # (i nodi DS sono solo origini di flusso, l'arco inverso EN→DS è
+    #  strutturalmente inutilizzabile e genera variabili/vincoli inutili)
+    for a, b in A0:
+        A.append((a, b))
+        delay[(a, b)] = seg_delay(a, b)
+
+    # archi interni (A1, A2, A4): bidirezionali
+    for a, b in A1 + A2 + list(A4):
         d = seg_delay(a, b)
         A.append((a, b))
         A.append((b, a))
@@ -313,14 +324,18 @@ def main():
     ap.add_argument("--topology", choices=["balanced", "inst1"], required=True,
                      help="Variante di topologia")
     ap.add_argument("--num-clients", type=int, default=None,
-                     help="Limita ai primi N client (per test incrementali). Default: tutti.")
+                     help="Limita a N client (per test incrementali). Default: tutti.")
+    ap.add_argument("--start-client", type=int, default=1,
+                     help="Indice (1-based) da cui partire per selezionare i client. Default: 1.")
     ap.add_argument("--out", type=Path, required=True, help="Percorso file .dat di output")
     args = ap.parse_args()
 
-    data = build(args.clients, args.topology, args.num_clients)
+    data = build(args.clients, args.topology, args.num_clients, args.start_client)
     label = f"{args.clients}clients_{args.topology}"
     if args.num_clients:
-        label += f"_first{args.num_clients}"
+        label += f"_N{args.num_clients}"
+        if args.start_client > 1:
+            label += f"_start{args.start_client}"
     write_dat(data, args.out, label)
 
 

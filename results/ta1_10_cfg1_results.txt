@@ -1,0 +1,8 @@
+
+========================================
+ ESECUZIONE TEST: test/ta1/ta1_10_cfg1.dat
+========================================
+
+Tempo di esecuzione: 2.64 secondi
+solve_result: infeasible
+Nessuna soluzione ottima trovata.

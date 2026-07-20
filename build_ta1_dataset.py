@@ -20,7 +20,7 @@ import argparse
 import re
 from pathlib import Path
 
-DATA_DIR = Path(__file__).parent / "Data" / "France"
+DATA_DIR = Path(__file__).parent / "Data" / "ta1"
 
 def parse_set(text, name):
     m = re.search(rf"set\s+{name}\s*:=\s*(.*?);", text, re.S)

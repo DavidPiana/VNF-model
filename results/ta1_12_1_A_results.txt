@@ -1,14 +1,14 @@
 
 ========================================
- ESECUZIONE TEST: test/ta1/ta1_12_1_A.dat
+ ESECUZIONE TEST: C:\Users\annam\OneDrive\Desktop\universita\anno 3\2 semestre\tesi\VNF-model\test\ta1\ta1_12_1_A.dat
 ========================================
 
-Tempo di esecuzione: 32.15 secondi
+Tempo di esecuzione: 31.42 secondi
 solve_result: limit
 
 --- LIMITE DI TEMPO (30s) RAGGIUNTO ---
 Migliore soluzione (Upper Bound): 6999.999996799335
-Migliore lower bound: 0
+Migliore lower bound: 5499.999996399966
 
 L_max = 6999.999996799335
 

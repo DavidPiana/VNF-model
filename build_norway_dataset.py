@@ -63,8 +63,12 @@ def parse_symbolic_param(text, name):
 
 def parse_sndlib_demands(text):
     demands = []
-    for m in re.finditer(r"(D\d+_\w+_\w+)\s*\(\s*(N\d+)\s+(N\d+)\s*\)\s*([\d.]+)\s*([\d.]+)\s*([\d.]+)", text):
-        did, src, tgt, val = m.group(1), m.group(2), m.group(3), float(m.group(5))
+    # format: D1 ( N1 N2 ) 1 10.00 UNLIMITED
+    for m in re.finditer(r"(D\d+)\s*\(\s*(N\d+)\s+(N\d+)\s*\)\s*([\d.]+)\s*([\d.]+)\s*(?:UNLIMITED|[\d.]+)", text):
+        did = f"{m.group(1)}_{m.group(2)}_{m.group(3)}"
+        src = m.group(2)
+        tgt = m.group(3)
+        val = float(m.group(5))
         demands.append((did, src, tgt, val))
     return demands
 

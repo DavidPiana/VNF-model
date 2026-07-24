@@ -1,8 +1,8 @@
 
 ========================================
- ESECUZIONE TEST: test/ta1\ta1_12_1_A.dat
+ ESECUZIONE TEST: C:\Users\annam\OneDrive\Desktop\universita\anno 3\2 semestre\tesi\VNF-model\test\ta1\ta1_12_1_A.dat
 ========================================
 
-Tempo di esecuzione: 2.50 secondi
+Tempo di esecuzione: 1.91 secondi
 solve_result: infeasible
 Nessuna soluzione ottima trovata.

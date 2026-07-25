@@ -51,7 +51,7 @@ else:
     test_name = os.path.basename(FILE_DATI).split('.')[0]
     results_dir = "results"
     os.makedirs(results_dir, exist_ok=True)
-    output_file = os.path.join(results_dir, f"{test_name}_results.txt")
+    output_file = os.path.join(results_dir, f"{test_name}_{model_type}_results.txt")
 
 output_lines = []
 def print_out(text=""):

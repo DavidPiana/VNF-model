@@ -1,0 +1,263 @@
+nome_istanza,num_domande,ottimo,tempo,gap,modello,L_aif1,L_aif2,L_aif3,varianza_aif
+ta1_12_2_B,12,0,3602.56,0.000949,sum,19615.384601,32692.307668,26153.846134,42751479.226367
+
+========================================
+ ESECUZIONE TEST: C:\Users\annam\OneDrive\Desktop\universita\anno 3\2 semestre\tesi\VNF-model\test\rapidi\ta1_12_2_B.dat
+========================================
+
+Tempo di esecuzione: 3602.56 secondi
+solve_result: limit
+
+--- LIMITE DI TEMPO (3600s) RAGGIUNTO ---
+Migliore soluzione (Upper Bound): 78461.53840319843
+Migliore lower bound: 78387.17943127996
+
+Sum_L = 78461.53840319843
+
+--- Installazioni VNF (y_if = 1) ---
+  VNF F1 installata sul nodo N1
+  VNF F2 installata sul nodo N1
+  VNF F3 installata sul nodo N1
+  VNF F1 installata sul nodo N10
+  VNF F3 installata sul nodo N10
+  VNF F1 installata sul nodo N11
+  VNF F2 installata sul nodo N11
+  VNF F3 installata sul nodo N11
+  VNF F2 installata sul nodo N12
+  VNF F3 installata sul nodo N12
+  VNF F1 installata sul nodo N13
+  VNF F3 installata sul nodo N13
+  VNF F1 installata sul nodo N14
+  VNF F2 installata sul nodo N14
+  VNF F3 installata sul nodo N14
+  VNF F1 installata sul nodo N15
+  VNF F2 installata sul nodo N15
+  VNF F3 installata sul nodo N15
+  VNF F4 installata sul nodo N15
+  VNF F1 installata sul nodo N16
+  VNF F2 installata sul nodo N16
+  VNF F3 installata sul nodo N16
+  VNF F4 installata sul nodo N16
+  VNF F1 installata sul nodo N17
+  VNF F1 installata sul nodo N18
+  VNF F2 installata sul nodo N18
+  VNF F3 installata sul nodo N18
+  VNF F1 installata sul nodo N19
+  VNF F2 installata sul nodo N19
+  VNF F3 installata sul nodo N19
+  VNF F1 installata sul nodo N2
+  VNF F3 installata sul nodo N2
+  VNF F1 installata sul nodo N20
+  VNF F2 installata sul nodo N20
+  VNF F3 installata sul nodo N20
+  VNF F3 installata sul nodo N21
+  VNF F1 installata sul nodo N22
+  VNF F2 installata sul nodo N22
+  VNF F3 installata sul nodo N22
+  VNF F1 installata sul nodo N23
+  VNF F2 installata sul nodo N23
+  VNF F3 installata sul nodo N23
+  VNF F4 installata sul nodo N23
+  VNF F1 installata sul nodo N24
+  VNF F3 installata sul nodo N24
+  VNF F1 installata sul nodo N3
+  VNF F3 installata sul nodo N3
+  VNF F1 installata sul nodo N4
+  VNF F3 installata sul nodo N4
+  VNF F1 installata sul nodo N5
+  VNF F2 installata sul nodo N5
+  VNF F3 installata sul nodo N5
+  VNF F1 installata sul nodo N6
+  VNF F2 installata sul nodo N7
+  VNF F3 installata sul nodo N7
+  VNF F1 installata sul nodo N8
+  VNF F2 installata sul nodo N8
+  VNF F3 installata sul nodo N8
+  VNF F1 installata sul nodo N9
+  VNF F2 installata sul nodo N9
+  VNF F3 installata sul nodo N9
+
+--- Assegnazioni domanda->VNF (z_if^k = 1) ---
+  Domanda ds_D14_N20_N1: usa VNF F1 sul nodo N13
+  Domanda ds_D14_N20_N1: usa VNF F2 sul nodo N16
+  Domanda ds_D14_N20_N1: usa VNF F4 sul nodo N23
+  Domanda ds_D14_N20_N1: usa VNF F3 sul nodo N3
+  Domanda ds_D17_N9_N15: usa VNF F2 sul nodo N15
+  Domanda ds_D17_N9_N15: usa VNF F3 sul nodo N15
+  Domanda ds_D17_N9_N15: usa VNF F4 sul nodo N15
+  Domanda ds_D17_N9_N15: usa VNF F1 sul nodo N4
+  Domanda ds_D18_N8_N22: usa VNF F3 sul nodo N14
+  Domanda ds_D18_N8_N22: usa VNF F2 sul nodo N16
+  Domanda ds_D18_N8_N22: usa VNF F1 sul nodo N22
+  Domanda ds_D18_N8_N22: usa VNF F4 sul nodo N23
+  Domanda ds_D19_N6_N15: usa VNF F2 sul nodo N16
+  Domanda ds_D19_N6_N15: usa VNF F3 sul nodo N16
+  Domanda ds_D19_N6_N15: usa VNF F4 sul nodo N16
+  Domanda ds_D19_N6_N15: usa VNF F1 sul nodo N19
+  Domanda ds_D20_N12_N1: usa VNF F1 sul nodo N14
+  Domanda ds_D20_N12_N1: usa VNF F2 sul nodo N15
+  Domanda ds_D20_N12_N1: usa VNF F4 sul nodo N16
+  Domanda ds_D20_N12_N1: usa VNF F3 sul nodo N21
+  Domanda ds_D21_N1_N12: usa VNF F1 sul nodo N1
+  Domanda ds_D21_N1_N12: usa VNF F3 sul nodo N12
+  Domanda ds_D21_N1_N12: usa VNF F4 sul nodo N15
+  Domanda ds_D21_N1_N12: usa VNF F2 sul nodo N23
+  Domanda ds_D22_N24_N15: usa VNF F2 sul nodo N15
+  Domanda ds_D22_N24_N15: usa VNF F4 sul nodo N16
+  Domanda ds_D22_N24_N15: usa VNF F3 sul nodo N18
+  Domanda ds_D22_N24_N15: usa VNF F1 sul nodo N5
+  Domanda ds_D25_N20_N18: usa VNF F1 sul nodo N20
+  Domanda ds_D25_N20_N18: usa VNF F2 sul nodo N23
+  Domanda ds_D25_N20_N18: usa VNF F3 sul nodo N23
+  Domanda ds_D25_N20_N18: usa VNF F4 sul nodo N23
+  Domanda ds_D26_N18_N20: usa VNF F2 sul nodo N16
+  Domanda ds_D26_N18_N20: usa VNF F1 sul nodo N18
+  Domanda ds_D26_N18_N20: usa VNF F4 sul nodo N23
+  Domanda ds_D26_N18_N20: usa VNF F3 sul nodo N24
+  Domanda ds_D27_N24_N9: usa VNF F4 sul nodo N15
+  Domanda ds_D27_N24_N9: usa VNF F2 sul nodo N23
+  Domanda ds_D27_N24_N9: usa VNF F1 sul nodo N24
+  Domanda ds_D27_N24_N9: usa VNF F3 sul nodo N5
+  Domanda ds_D28_N9_N24: usa VNF F4 sul nodo N16
+  Domanda ds_D28_N9_N24: usa VNF F3 sul nodo N20
+  Domanda ds_D28_N9_N24: usa VNF F2 sul nodo N23
+  Domanda ds_D28_N9_N24: usa VNF F1 sul nodo N9
+  Domanda ds_D29_N12_N2: usa VNF F3 sul nodo N10
+  Domanda ds_D29_N12_N2: usa VNF F2 sul nodo N15
+  Domanda ds_D29_N12_N2: usa VNF F4 sul nodo N16
+  Domanda ds_D29_N12_N2: usa VNF F1 sul nodo N2
+
+--- Routing (x_ij^ks = 1) ---
+  Domanda ds_D14_N20_N1, subpath 1: arco (N12 -> N13)
+  Domanda ds_D14_N20_N1, subpath 2: arco (N13 -> N2)
+  Domanda ds_D14_N20_N1, subpath 4: arco (N14 -> N23)
+  Domanda ds_D14_N20_N1, subpath 3: arco (N15 -> N3)
+  Domanda ds_D14_N20_N1, subpath 3: arco (N16 -> N15)
+  Domanda ds_D14_N20_N1, subpath 5: arco (N17 -> tau)
+  Domanda ds_D14_N20_N1, subpath 2: arco (N19 -> N16)
+  Domanda ds_D14_N20_N1, subpath 2: arco (N2 -> N19)
+  Domanda ds_D14_N20_N1, subpath 1: arco (N20 -> N12)
+  Domanda ds_D14_N20_N1, subpath 5: arco (N23 -> N17)
+  Domanda ds_D14_N20_N1, subpath 4: arco (N3 -> N14)
+  Domanda ds_D14_N20_N1, subpath 1: arco (ds_D14_N20_N1 -> N20)
+  Domanda ds_D17_N9_N15, subpath 2: arco (N12 -> N2)
+  Domanda ds_D17_N9_N15, subpath 5: arco (N15 -> N6)
+  Domanda ds_D17_N9_N15, subpath 2: arco (N2 -> N15)
+  Domanda ds_D17_N9_N15, subpath 1: arco (N20 -> N4)
+  Domanda ds_D17_N9_N15, subpath 2: arco (N4 -> N12)
+  Domanda ds_D17_N9_N15, subpath 5: arco (N6 -> tau)
+  Domanda ds_D17_N9_N15, subpath 1: arco (N9 -> N20)
+  Domanda ds_D17_N9_N15, subpath 1: arco (ds_D17_N9_N15 -> N9)
+  Domanda ds_D18_N8_N22, subpath 2: arco (N12 -> N13)
+  Domanda ds_D18_N8_N22, subpath 2: arco (N13 -> N2)
+  Domanda ds_D18_N8_N22, subpath 4: arco (N14 -> N23)
+  Domanda ds_D18_N8_N22, subpath 3: arco (N15 -> N3)
+  Domanda ds_D18_N8_N22, subpath 3: arco (N16 -> N15)
+  Domanda ds_D18_N8_N22, subpath 5: arco (N17 -> tau)
+  Domanda ds_D18_N8_N22, subpath 2: arco (N19 -> N16)
+  Domanda ds_D18_N8_N22, subpath 2: arco (N2 -> N19)
+  Domanda ds_D18_N8_N22, subpath 2: arco (N20 -> N12)
+  Domanda ds_D18_N8_N22, subpath 2: arco (N22 -> N20)
+  Domanda ds_D18_N8_N22, subpath 5: arco (N23 -> N17)
+  Domanda ds_D18_N8_N22, subpath 3: arco (N3 -> N14)
+  Domanda ds_D18_N8_N22, subpath 1: arco (N8 -> N22)
+  Domanda ds_D18_N8_N22, subpath 1: arco (ds_D18_N8_N22 -> N8)
+  Domanda ds_D19_N6_N15, subpath 1: arco (N13 -> N2)
+  Domanda ds_D19_N6_N15, subpath 5: arco (N16 -> tau)
+  Domanda ds_D19_N6_N15, subpath 2: arco (N19 -> N16)
+  Domanda ds_D19_N6_N15, subpath 1: arco (N2 -> N19)
+  Domanda ds_D19_N6_N15, subpath 1: arco (N5 -> N13)
+  Domanda ds_D19_N6_N15, subpath 1: arco (N6 -> N5)
+  Domanda ds_D19_N6_N15, subpath 1: arco (ds_D19_N6_N15 -> N6)
+  Domanda ds_D20_N12_N1, subpath 2: arco (N1 -> N20)
+  Domanda ds_D20_N12_N1, subpath 3: arco (N10 -> N21)
+  Domanda ds_D20_N12_N1, subpath 1: arco (N12 -> N5)
+  Domanda ds_D20_N12_N1, subpath 2: arco (N14 -> N24)
+  Domanda ds_D20_N12_N1, subpath 3: arco (N15 -> N10)
+  Domanda ds_D20_N12_N1, subpath 5: arco (N16 -> tau)
+  Domanda ds_D20_N12_N1, subpath 2: arco (N17 -> N1)
+  Domanda ds_D20_N12_N1, subpath 4: arco (N18 -> N16)
+  Domanda ds_D20_N12_N1, subpath 2: arco (N20 -> N15)
+  Domanda ds_D20_N12_N1, subpath 4: arco (N21 -> N18)
+  Domanda ds_D20_N12_N1, subpath 2: arco (N23 -> N17)
+  Domanda ds_D20_N12_N1, subpath 2: arco (N24 -> N23)
+  Domanda ds_D20_N12_N1, subpath 1: arco (N3 -> N14)
+  Domanda ds_D20_N12_N1, subpath 1: arco (N5 -> N3)
+  Domanda ds_D20_N12_N1, subpath 1: arco (ds_D20_N12_N1 -> N12)
+  Domanda ds_D21_N1_N12, subpath 2: arco (N1 -> N9)
+  Domanda ds_D21_N1_N12, subpath 4: arco (N12 -> N5)
+  Domanda ds_D21_N1_N12, subpath 5: arco (N15 -> N6)
+  Domanda ds_D21_N1_N12, subpath 3: arco (N20 -> N4)
+  Domanda ds_D21_N1_N12, subpath 3: arco (N23 -> N20)
+  Domanda ds_D21_N1_N12, subpath 3: arco (N4 -> N12)
+  Domanda ds_D21_N1_N12, subpath 4: arco (N5 -> N15)
+  Domanda ds_D21_N1_N12, subpath 5: arco (N6 -> tau)
+  Domanda ds_D21_N1_N12, subpath 2: arco (N9 -> N23)
+  Domanda ds_D21_N1_N12, subpath 1: arco (ds_D21_N1_N12 -> N1)
+  Domanda ds_D22_N24_N15, subpath 3: arco (N10 -> N21)
+  Domanda ds_D22_N24_N15, subpath 4: arco (N11 -> N16)
+  Domanda ds_D22_N24_N15, subpath 1: arco (N14 -> N3)
+  Domanda ds_D22_N24_N15, subpath 3: arco (N15 -> N10)
+  Domanda ds_D22_N24_N15, subpath 5: arco (N16 -> tau)
+  Domanda ds_D22_N24_N15, subpath 4: arco (N18 -> N11)
+  Domanda ds_D22_N24_N15, subpath 3: arco (N21 -> N18)
+  Domanda ds_D22_N24_N15, subpath 1: arco (N24 -> N14)
+  Domanda ds_D22_N24_N15, subpath 1: arco (N3 -> N5)
+  Domanda ds_D22_N24_N15, subpath 2: arco (N5 -> N15)
+  Domanda ds_D22_N24_N15, subpath 1: arco (ds_D22_N24_N15 -> N24)
+  Domanda ds_D25_N20_N18, subpath 5: arco (N17 -> tau)
+  Domanda ds_D25_N20_N18, subpath 2: arco (N20 -> N23)
+  Domanda ds_D25_N20_N18, subpath 5: arco (N23 -> N17)
+  Domanda ds_D25_N20_N18, subpath 1: arco (ds_D25_N20_N18 -> N20)
+  Domanda ds_D26_N18_N20, subpath 3: arco (N14 -> N24)
+  Domanda ds_D26_N18_N20, subpath 3: arco (N15 -> N3)
+  Domanda ds_D26_N18_N20, subpath 3: arco (N16 -> N15)
+  Domanda ds_D26_N18_N20, subpath 5: arco (N17 -> tau)
+  Domanda ds_D26_N18_N20, subpath 2: arco (N18 -> N16)
+  Domanda ds_D26_N18_N20, subpath 5: arco (N23 -> N17)
+  Domanda ds_D26_N18_N20, subpath 4: arco (N24 -> N23)
+  Domanda ds_D26_N18_N20, subpath 3: arco (N3 -> N14)
+  Domanda ds_D26_N18_N20, subpath 1: arco (ds_D26_N18_N20 -> N18)
+  Domanda ds_D27_N24_N9, subpath 3: arco (N12 -> N5)
+  Domanda ds_D27_N24_N9, subpath 5: arco (N15 -> N6)
+  Domanda ds_D27_N24_N9, subpath 3: arco (N20 -> N4)
+  Domanda ds_D27_N24_N9, subpath 3: arco (N23 -> N20)
+  Domanda ds_D27_N24_N9, subpath 2: arco (N24 -> N23)
+  Domanda ds_D27_N24_N9, subpath 3: arco (N4 -> N12)
+  Domanda ds_D27_N24_N9, subpath 4: arco (N5 -> N15)
+  Domanda ds_D27_N24_N9, subpath 5: arco (N6 -> tau)
+  Domanda ds_D27_N24_N9, subpath 1: arco (ds_D27_N24_N9 -> N24)
+  Domanda ds_D28_N9_N24, subpath 4: arco (N15 -> N19)
+  Domanda ds_D28_N9_N24, subpath 5: arco (N16 -> tau)
+  Domanda ds_D28_N9_N24, subpath 4: arco (N19 -> N16)
+  Domanda ds_D28_N9_N24, subpath 4: arco (N20 -> N15)
+  Domanda ds_D28_N9_N24, subpath 3: arco (N23 -> N20)
+  Domanda ds_D28_N9_N24, subpath 2: arco (N9 -> N23)
+  Domanda ds_D28_N9_N24, subpath 1: arco (ds_D28_N9_N24 -> N9)
+  Domanda ds_D29_N12_N2, subpath 4: arco (N10 -> N16)
+  Domanda ds_D29_N12_N2, subpath 1: arco (N12 -> N2)
+  Domanda ds_D29_N12_N2, subpath 3: arco (N15 -> N10)
+  Domanda ds_D29_N12_N2, subpath 5: arco (N16 -> tau)
+  Domanda ds_D29_N12_N2, subpath 2: arco (N2 -> N5)
+  Domanda ds_D29_N12_N2, subpath 2: arco (N5 -> N15)
+  Domanda ds_D29_N12_N2, subpath 1: arco (ds_D29_N12_N2 -> N12)
+
+--- Latenza per domanda ---
+  Domanda ds_D14_N20_N1: L = 6538.461533599993
+  Domanda ds_D17_N9_N15: L = 6538.461533599951
+  Domanda ds_D18_N8_N22: L = 6538.461533599909
+  Domanda ds_D19_N6_N15: L = 6538.461533600001
+  Domanda ds_D20_N12_N1: L = 6538.461533599991
+  Domanda ds_D21_N1_N12: L = 6538.461533599996
+  Domanda ds_D22_N24_N15: L = 6538.461533599991
+  Domanda ds_D25_N20_N18: L = 6538.461533598716
+  Domanda ds_D26_N18_N20: L = 6538.461533599891
+  Domanda ds_D27_N24_N9: L = 6538.461533599996
+  Domanda ds_D28_N9_N24: L = 6538.461533599989
+  Domanda ds_D29_N12_N2: L = 6538.461533599992
+
+--- Latenza totale per nodo AIF ---
+  Nodo N15: L_totale = 19615.384601
+  Nodo N16: L_totale = 32692.307668
+  Nodo N23: L_totale = 26153.846134
+  Varianza: 42751479.226367

@@ -1,18 +1,18 @@
 nome_istanza,num_domande,ottimo,tempo,gap,modello,L_aif1,L_aif2,L_aif3,varianza_aif
-mandala_48_inst1_B,48,0,53.98,inf,max,0.000000,0.000000,0.000000,0.000000
+mandala_48_inst1_B,48,0,55.74,inf,sum,0.000000,0.000000,0.000000,0.000000
 
 ========================================
  ESECUZIONE TEST: test/mandala/mandala_48_inst1_B.dat
 ========================================
 
-Tempo di esecuzione: 53.98 secondi
+Tempo di esecuzione: 55.74 secondi
 solve_result: limit
 
 --- LIMITE DI TEMPO (30s) RAGGIUNTO ---
 Migliore soluzione (Upper Bound): 0
 Migliore lower bound: 0
 
-L_max = 0
+Sum_L = 0
 
 --- Installazioni VNF (y_if = 1) ---
 

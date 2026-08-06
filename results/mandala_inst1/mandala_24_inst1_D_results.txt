@@ -1,3 +1,5 @@
+nome_istanza,num_domande,ottimo,tempo,gap,modello,L_aif1,L_aif2,L_aif3,varianza_aif
+mandala_24_inst1_D,24,0,3607.25,0.001867,max,137022.561089,91271.417510,320070.749021,14658156723.975933
 
 ========================================
  ESECUZIONE TEST: C:\Users\annam\OneDrive\Desktop\universita\anno 3\2 semestre\tesi\VNF-model\test\mandala_24_inst1_D.dat

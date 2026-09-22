@@ -32,3 +32,5 @@ Usa sempre il formato standard "Conventional Commits" per i messaggi. La struttu
 feat(parser): add TOSCA descriptor validation
 fix(network): resolve timeout issue on VDU instantiation
 docs: update README with deployment steps
+
+per runnare solve_vnf utilizza uv run

@@ -1,0 +1,5 @@
+param p1 := 24;
+param p2 := 12;
+param p3 := 6;
+param T_target := 5000000;
+param tt := 1.65;

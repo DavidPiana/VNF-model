@@ -1,0 +1,398 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{multirow}
+\geometry{a4paper, margin=2.5cm}
+
+\begin{document}
+
+\section*{Model Formulation 3}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $N$: set of physical nodes
+    \item $A$: set of physical arcs
+    \item $D$: set of demands
+    \item $F$: set of VNF types
+    \item $\tau$: virtual sink node ($\tau \notin N$)
+    \item $N^+ = N \cup \{\tau\}$: extended node set
+    \item $A^+ = A \cup \{(i,\tau) : i \in N\}$: extended arc set (virtual arcs have unlimited capacity)
+    \item $O = \{o^k : k \in D\}$: set of origin nodes
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $u$: capacity of each physical arc $(i,j) \in A$
+    \item $q_f$: capacity of service type $f \in F$
+    \item $d^k$: bandwidth demand of $k \in D$
+    \item $o^k$: origin node of demand $k \in D$ ($o^k \in N$)
+    \item $n$: number of services in the chain (same for all demands)
+    \item $f: \{1, \dots, n\} \to F$: type of service at position $s$ in the chain
+    \item $\alpha_{i,f} \in \{0,1\}$: equals $1$ if service type $f$ can be executed on node $i$ and $i \notin O$, $0$ otherwise
+    \item $\tau_{ij} \geq 0$: transport delay on physical arc $(i,j) \in A$ (virtual arcs have zero delay)
+    \item $\sigma_f \geq 0$: fixed setup time for VNF type $f \in F$
+    \item $\gamma_f \geq 0$: variable processing time per demand for VNF type $f \in F$
+    \item $lv_i \in \{1, 2, 3\}$: hierarchical level of node $i \in N$ ($1=EN, 2=CN, 3=BN$)
+    \item $c_{batch}$: fixed component of the variable training time for $F2$
+    \item $c_{inv}(lv_i)$: level-dependent component of the variable training time for $F2$
+    \item $q_{batch}$: fixed component of the setup training time for $F2$
+    \item $q_{inv}(lv_i)$: level-dependent component of the setup training time for $F2$
+    \item $DS_{\max}$: maximum number of demands that can be served by $F2$ on a single node
+    \item $T_{target}$: target maximum training time for the federated learning function $F2$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $y_{if} \in \{0,1\}$: $1$ if service type $f \in F$ is installed on node $i \in N$
+    \item $z_{if}^k \in \{0,1\}$: $1$ if demand $k \in D$ uses service type $f \in F$ on node $i \in N$
+    \item $x_{ij}^{ks} \in \{0,1\}$: $1$ if extended arc $(i,j) \in A^+$ is used by demand $k \in D$ in subpath $s \in \{1, \dots, n+1\}$
+    \item $w_{uv}^{i, s+1} \in \{0,1\}$: $1$ if extended arc $(u,v) \in A^+$ is used in subpath $s+1$ by the aggregated flow that has just completed service $s$ on node $i$ ($i \in N$, $s \in \{1, \dots, n\}$)
+    \item $T_{if} \in \mathbb{R}_+$: total processing time at node $i \in N$ for VNF type $f \in F$
+    \item $\Theta_{if}^k \in \mathbb{R}_+$: processing time experienced by demand $k \in D$ when using VNF type $f \in F$ at node $i \in N$
+    \item $L^k \in \mathbb{R}_+$: total end-to-end latency for demand $k \in D$ (transport + processing)
+    \item $L_{\max} \in \mathbb{R}_+$: maximum latency among all demands
+\end{itemize}
+
+\subsection*{Objective Function}
+\begin{equation}
+    \min L_{\max}
+\end{equation}
+
+\subsection*{Constraints}
+\begin{align}
+    \sum_{i \in N} z_{if}^k &= 1, && \forall k \in D,\ f \in F \label{assign1} \\[4pt]
+    z_{if}^k &\leq y_{if}, && \forall k \in D,\ i \in N,\ f \in F : \alpha_{i,f}=1 \label{assign2a} \\[4pt]
+    z_{if}^k &= 0, && \forall k \in D,\ i \in N,\ f \in F : \alpha_{i,f}=0 \label{assign2b} \\[4pt]
+    y_{if} &= 0, && \forall i \in N,\ f \in F : \alpha_{i,f}=0 \label{assign2c} \\[4pt]
+    \sum_{k \in D} z_{if}^{k} &\leq q_f, &&\forall i \in N, f \in F : \alpha_{i,f} = 1 \label{capvnf} \\[4pt]
+    \sum_{k \in D} z_{i,F2}^{k} &\leq DS_{\max}, &&\forall i \in N : \alpha_{i,F2} = 1 \label{capF2} \\[4pt]
+    \sum_{j:(i,j)\in A^+} x_{ij}^{ks} - \sum_{j:(j,i)\in A} x_{ji}^{ks} &= z_{i,f(s-1)}^k - z_{i,f(s)}^k, && \forall k \in D,\ i \in N,\ s \in \{2,\dots,n\} \label{flowinter} \\[4pt]
+    \sum_{j:(i,j)\in A} x_{ij}^{k1} - \sum_{j:(j,i)\in A} x_{ji}^{k1} &= 
+    \begin{cases}
+        1 - z_{i,f(1)}^k, & i = o^k \\
+        - z_{i,f(1)}^k, & i \neq o^k
+    \end{cases}, && \forall k \in D,\ i \in N \label{flowfirst} \\[4pt]
+    \sum_{j:(i,j)\in A^+} x_{ij}^{k,n+1} - \sum_{j:(j,i)\in A} x_{ji}^{k,n+1} &= z_{i,f(n)}^k, && \forall k \in D,\ i \in N \label{flowlast} \\[4pt]
+    \sum_{s=1}^{n+1} \sum_{l:(j,i)\in A} x_{ji}^{ks} &\leq 1, && \forall k \in D,\ i \in N \label{indegree} \\[4pt]
+    \sum_{s=1}^{n+1} \sum_{j:(i,j)\in A^+} x_{ij}^{ks} &\leq 1, && \forall k \in D,\ i \in N \label{outdegree} \\[4pt]
+    x_{uv}^{k,s+1} &\leq w_{uv}^{i,s+1} + (1 - z_{i,f(s)}^k), && \forall k \in D,\ i \in N,\ (u,v) \in A^+,\ s \in \{1,\dots,n\} \label{coupling} \\[4pt]
+    \sum_{v:(u,v)\in A^+} w_{uv}^{i,s+1} &\leq 1, && \forall u \in N,\ i \in N,\ s \in \{1,\dots,n\} \label{nobifurc}
+\end{align}
+
+\begin{align}
+    T_{if} &= \sigma_f \cdot y_{if} + \gamma_f \cdot \sum_{k \in D} z_{if}^k, && \forall i \in N,\ f \in F \setminus \{F2\} : \alpha_{i,f}=1 \label{proctime_other} \\[4pt]
+    T_{i,F2} &= \left(q_{batch} + q_{inv}(lv_i)\right) \cdot y_{i,F2} + \left(c_{batch} + c_{inv}(lv_i)\right) \cdot \sum_{k \in D} z_{i,F2}^k, && \forall i \in N : \alpha_{i,F2}=1 \label{proctime_F2} \\[4pt]
+    T_{i,F2} &\leq T_{target}, && \forall i \in N : \alpha_{i,F2}=1 \label{trainingtarget} \\[4pt]
+    \Theta_{if}^k &\leq M_f \cdot z_{if}^k, && \forall k \in D,\ i \in N,\ f \in F : \alpha_{i,f}=1 \label{theta1} \\[4pt]
+    \Theta_{if}^k &\geq T_{if} - M_f(1 - z_{if}^k), && \forall k \in D,\ i \in N,\ f \in F : \alpha_{i,f}=1 \label{theta2} \\[4pt]
+    L^k &= \sum_{s=1}^{n+1} \sum_{(i,j) \in A} \tau_{ij} \cdot x_{ij}^{ks} + \sum_{\substack{i \in N,\ f \in F \\ \alpha_{i,f}=1}} \Theta_{if}^k, && \forall k \in D \label{latency}
+\end{align}
+\begin{align}
+    L_{\max} &\geq L^k, && \forall k \in D \label{maxlatency}
+\end{align}
+\vspace{1em}
+
+\subsection*{Explanation of Constraints}
+\begin{itemize}
+    \item[\eqref{assign1}] \textbf{VNF assignment:} each demand must be served by exactly one instance of each required VNF type.
+    \item[\eqref{assign2a}--\eqref{assign2c}] \textbf{Feasibility and installation:} a VNF can be used on a node only if it is installed there \eqref{assign2a}, and both usage \eqref{assign2b} and installation \eqref{assign2c} are forbidden on nodes where that VNF type is not executable ($\alpha_{i,f}=0$).
+    \item[\eqref{capvnf}] \textbf{VNF capacity:} the total bandwidth processed by service type $f$ on node $i$ cannot exceed $q_f$. Multiplying by $\alpha_{i,f}$ makes the right‑hand side zero when $f$ is not executable on $i$.
+    \item[\eqref{capF2}] \textbf{Capacity of F2 (Federated Learning):} the maximum number of demands processed by service $F2$ on node $i$ cannot exceed the limit $DS_{\max}$.
+    \item[\eqref{flowinter}] \textbf{Intermediate flow balance:} for subpaths $s = 2,\dots,n$, the net flow entering node $i$ equals the difference between using service $f(s-1)$ and service $f(s)$ at $i$. This links successive services along the chain.
+    \item[\eqref{flowfirst}] \textbf{First subpath flow balance:} from the origin $o^k$, one unit of flow is injected; at other nodes the net outflow equals $z_{i,f(1)}^k$, forcing the first VNF to be reached exactly once.
+    \item[\eqref{flowlast}] \textbf{Last subpath flow balance:} after the final service $f(n)$, the flow is directed to the virtual sink $\tau$ through arcs $(i,\tau) \in A^+$. The net flow at node $i$ equals $z_{i,f(n)}^k$, meaning the flow leaves the node where the last VNF was processed.
+    \item[\eqref{indegree}--\eqref{outdegree}] \textbf{Simple path:} each demand uses at most one incoming and one outgoing arc at any node, preventing cycles and traffic splitting.
+    \item[\eqref{coupling}] \textbf{Path unification:} if demand $k$ uses service $s$ on node $i$ ($z_{i,f(s)}^k = 1$), then its subsequent routing ($x_{uv}^{k,s+1}$) must follow the aggregated path $w_{uv}^{i,s+1}$ that originates from $i$. This forces all demands sharing the same service node to travel together toward the sink.
+    \item[\eqref{nobifurc}] \textbf{No bifurcation of aggregated paths:} the aggregated path leaving node $i$ after service $s$ cannot branch; at most one outgoing arc per node is used. Together with \eqref{coupling}, this guarantees a single tree rooted at $\tau$ for each service‑stage.
+    \item[\eqref{proctime_other}] \textbf{Processing time for generic VNFs:} the total processing time at node $i$ for generic VNF $f$ includes a fixed setup time $\sigma_f$ (paid once if $y_{if}=1$) plus a variable time $\gamma_f$ per demand using that VNF.
+    \item[\eqref{proctime_F2}] \textbf{Training time for F2 (Federated Learning):} the processing time for $F2$ depends on the node's hierarchical level $lv_i$. It includes a fixed setup component $\left(q_{batch} + q_{inv}(lv_i)\right)$ plus a variable component $\left(c_{batch} + c_{inv}(lv_i)\right)$ proportional to the number of demands.
+    \item[\eqref{trainingtarget}] \textbf{Federated Learning convergence target:} the total training time $T_{i,F2}$ for service $F2$ at node $i$ must not exceed the target time $T_{target}$.
+    \item[\eqref{theta1}--\eqref{theta2}] \textbf{Linearization:} $\Theta_{if}^k = T_{if}$ if demand $k$ uses VNF $f$ at node $i$ ($z_{if}^k=1$), otherwise $\Theta_{if}^k = 0$. Here $M_f$ is a sufficiently large constant specific to each VNF type $f$.
+    \item[\eqref{latency}] \textbf{End-to-end latency:} total time for demand $k$ is the sum of transport delays on all arcs used plus processing times at all VNFs visited.
+    \item[\eqref{maxlatency}] \textbf{Maximum latency:} $L_{\max}$ is forced to be at least as large as the latency of every demand. Minimizing $L_{\max}$ in the objective ensures it equals the maximum latency across all demands.
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{Note on the per-function big-$M_f$ constants:} 
+Using a single global large constant for all functions leads to weak LP relaxations. Therefore, we define a specific $M_f$ for each function $f \in F$ to bound $T_{if}$ tightly. A valid choice is:
+\begin{align*}
+    M_f &= \sigma_f + \gamma_f \cdot |D|, \quad &&\forall f \in F \setminus \{F2\} \\
+    M_{F2} &= \min \left( \max_{i \in N} \left( q_{batch} + q_{inv}(lv_i) + (c_{batch} + c_{inv}(lv_i)) \cdot |D| \right), T_{target} \right)
+\end{align*}
+This bound is tight because the maximum processing time $T_{if}$ for generic functions occurs when all $|D|$ demands use the same VNF instance. For $F2$, the maximum processing time is additionally bounded by the convergence requirement $T_{target}$ from constraint \eqref{trainingtarget}.
+
+\newpage
+\subsection*{Instance Details}
+
+The model has been tested on four different network topologies. Two categories of networks are used:
+\begin{itemize}
+    \item \textbf{Mandala}: a synthetic hierarchical topology with explicit EN/CN/BN layers, designed to model a realistic 5G MAN (Metropolitan Area Network).
+    \item \textbf{SNDLib-based networks} (France, Norway, TA1): real-world topologies from the SNDLib benchmark library, adapted with hierarchical levels and demand sources.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent Table~\ref{tab:topology} summarizes the topology structure of each network, including the number of physical nodes, directed arcs, hierarchical levels, and VNF-capable nodes per function type.
+
+\begin{table}[h!]
+\centering
+\small
+\caption{Network topology details.}
+\label{tab:topology}
+\begin{tabular}{@{}l c c c c c c c c c c@{}}
+\toprule
+& & & \multicolumn{4}{c}{\textbf{Nodes by level}} & \multicolumn{4}{c}{\textbf{VNF-capable nodes}} \\
+\cmidrule(lr){4-7} \cmidrule(lr){8-11}
+\textbf{Network} & $|V|$ & $|A|$ & \textbf{lv\,1} & \textbf{lv\,2} & \textbf{lv\,3} & \textbf{K} & $F_1$ & $F_2$ & $F_3$ & $F_4$ \\
+\midrule
+Mandala     & 45 & 252 & 24 (EN) & 12 (CN) & 6 (BN) & 3 & 36 & 42 & 18 & 6 \\
+\midrule
+France      & 24 & 110 & 21 & 3 & --- & --- & 24 & 24 & 24 & 3 \\
+Norway      & 27 & 102 & 24 & 3 & --- & --- & 27 & 27 & 27 & 3 \\
+TA1         & 24 & 102 & 21 & 3 & --- & --- & 24 & 24 & 24 & 3 \\
+\bottomrule
+\end{tabular}
+\vspace{0.3em}
+
+\footnotesize
+\textit{Note:} $|V|$ and $|A|$ refer to the physical (infrastructure) nodes and directed arcs, excluding demand sources (DS) and the virtual sink $\tau$. In Mandala, EN/CN/BN nodes have distinct prefixes and hierarchical roles; in SNDLib networks, nodes are labeled N1\ldots N$_{|V|}$ with levels assigned from the topology analysis (level~1 = edge, level~2 = core/aggregation). Kernel nodes (K) are present only in the Mandala topology. $F_4$ is restricted to at most 3 active installations by constraint MaxNodesF4.
+\end{table}
+
+\vspace{0.5em}
+\noindent Table~\ref{tab:instances} summarizes the test instances generated for each network topology, detailing the number of demands, instances per demand size, and the strategy used to assign demands to origin nodes.
+
+\begin{table}[h!]
+\centering
+\small
+\caption{Test instance details.}
+\label{tab:instances}
+\begin{tabular}{@{}l l c c c c c@{}}
+\toprule
+& & & \multicolumn{3}{c}{\textbf{Instances per $|D|$}} & \\
+\cmidrule(lr){4-6}
+\textbf{Network} & \textbf{Variant} & $|D|$ tested & 12 & 24 & 48 & \textbf{DS assignment} \\
+\midrule
+\multirow{2}{*}{Mandala} & Balanced & 12, 24, 48 & 2 & 1 & 1 & Uniform (2 DS/EN) \\
+                         & Inst     & 12, 24, 48 & 8 & 4 & 2 & Random \\
+\midrule
+France                   & ---      & 10, 12, 24, 48 & 8 & 4 & 2 & Random (SNDLib demands) \\
+\midrule
+\multirow{1}{*}{Norway}  & ---      & 12, 24, 48 & $8 \times 10$ & $4 \times 10$ & $2 \times 10$ & Random (10 delay configs) \\
+\midrule
+\multirow{1}{*}{TA1}     & ---      & 10, 12, 24, 48 & $8 \times 4$ & $4 \times 4$ & $2 \times 4$ & Random (4 delay configs) \\
+\bottomrule
+\end{tabular}
+\vspace{0.3em}
+
+\footnotesize
+\textit{Note:} Each instance differs in the random assignment of demand sources to infrastructure nodes. Mandala ``Balanced'' distributes demands uniformly (exactly 2 DS per EN), while ``Inst'' uses random assignments. For Norway and TA1, multiple delay configurations are tested, each with different arc delay values derived from distinct SNDLib demand matrices. All instances share: $n=4$, chain $= F_1 \to F_2 \to F_3 \to F_4$, $d^k = 1.65$, $T_{target} = 5\,000\,000$, $DS_{\max} = 40$.
+\end{table}
+
+\vspace{0.5em}
+\noindent Table~\ref{tab:params} reports the common VNF parameters shared across all instances.
+
+\begin{table}[h!]
+\centering
+\small
+\caption{VNF parameters (common to all instances).}
+\label{tab:params}
+\begin{tabular}{@{}l c c c c@{}}
+\toprule
+\textbf{Parameter} & $F_1$ & $F_2$ & $F_3$ & $F_4$ \\
+\midrule
+$\sigma_f$ (setup time)         & 384.62 & 0.00   & 384.62 & 0.00 \\
+$\gamma_f$ (variable time)      & 115.38 & 0.00   & 115.38 & 0.00 \\
+$q_f$ (capacity)                & 384.62 & 40.00  & 769.23 & 769.23 \\
+\midrule
+\multicolumn{5}{l}{\textbf{F2 training time parameters (Federated Learning):}} \\
+\midrule
+$c_{batch}$    & \multicolumn{4}{c}{$-102.5641$} \\
+$q_{batch}$    & \multicolumn{4}{c}{$5102.5641$} \\
+\midrule
+ & \textbf{Level 1 (EN)} & \textbf{Level 2 (CN)} & \textbf{Level 3 (BN)} & \\
+\cmidrule(lr){2-4}
+$c_{inv}(lv)$  & 230.77 & 115.38 & 230.77 & \\
+$q_{inv}(lv)$  & 769.23 & 384.62 & 769.23 & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+\subsection*{Computational Results}
+
+Tables~\ref{tab:results_max} and~\ref{tab:results_sum} report the computational results for the min-max ($\min\, L_{\max}$) and min-sum ($\min\, \sum_k L^k$) objectives, respectively. For each instance:
+\begin{itemize}
+    \item \textbf{Opt}: 1 if the solver proved optimality, 0 if the time limit (3600\,s) was reached.
+    \item \textbf{Time}: wall-clock solve time in seconds.
+    \item \textbf{Gap}: relative optimality gap at termination. A value of 0.00\% indicates proven optimality.
+    \item $L_{\text{AIF}_1}, L_{\text{AIF}_2}, L_{\text{AIF}_3}$: total latency routed through each of the three AIF (Aggregation \& Inference Function) nodes.
+\end{itemize}
+
+% ==================== TABLE: MAX MODEL ====================
+\begin{table}[h!]
+\centering
+\scriptsize
+\caption{Computational results --- min-max model ($\min\, L_{\max}$).}
+\label{tab:results_max}
+\begin{tabular}{@{}l r c r r r r r@{}}
+\toprule
+\textbf{Instance} & $|D|$ & \textbf{Opt} & \textbf{Time (s)} & \textbf{Gap (\%)} & $L_{\text{AIF}_1}$ & $L_{\text{AIF}_2}$ & $L_{\text{AIF}_3}$ \\
+\midrule
+\multicolumn{8}{l}{\textit{Mandala --- Balanced}} \\
+\midrule
+mandala\_12\_balanced\_A & 12 & 1 & 525.46 & 0.00 & 112\,963.46 & 159\,035.99 & 0.00 \\
+mandala\_12\_balanced\_B & 12 & 1 & 568.64 & 0.00 & 113\,105.69 & 90\,873.23 & 68\,076.62 \\
+mandala\_24\_balanced    & 24 & 0 & 3\,608.05 & 0.03 & 226\,527.35 & 226\,527.35 & 90\,265.84 \\
+mandala\_48\_balanced    & 48 & 0 & 3\,613.66 & 145.41 & 100\,483.51 & 305\,282.47 & 955\,839.34 \\
+\midrule
+\multicolumn{8}{l}{\textit{Mandala --- Inst (random)}} \\
+\midrule
+mandala\_12\_inst1\_A & 12 & 1 & 538.24 & 0.00 & 135\,709.93 & 0.00 & 136\,345.61 \\
+mandala\_12\_inst1\_B & 12 & 1 & 548.57 & 0.00 & 136\,186.02 & 135\,972.86 & 0.00 \\
+mandala\_12\_inst1\_C & 12 & 1 & 1\,168.56 & 0.00 & 113\,350.28 & 159\,087.67 & 0.00 \\
+mandala\_12\_inst1\_D & 12 & 1 & 568.45 & 0.00 & 89\,894.24 & 113\,244.76 & 68\,916.54 \\
+mandala\_12\_inst1\_E & 12 & 1 & 449.34 & 0.00 & 0.00 & 136\,148.24 & 136\,148.24 \\
+mandala\_12\_inst1\_F & 12 & 1 & 1\,117.18 & 0.00 & 135\,596.51 & 0.00 & 135\,596.51 \\
+mandala\_12\_inst1\_G & 12 & 1 & 422.63 & 0.00 & 135\,500.44 & 136\,632.53 & 0.00 \\
+mandala\_12\_inst1\_H & 12 & 1 & 432.25 & 0.00 & 136\,136.73 & 136\,136.73 & 0.00 \\
+mandala\_24\_inst1\_A & 24 & 0 & 3\,607.34 & 0.02 & 204\,414.43 & 113\,178.36 & 227\,173.89 \\
+mandala\_24\_inst1\_B & 24 & 0 & 3\,607.09 & 0.02 & 135\,961.26 & 181\,985.91 & 226\,527.35 \\
+mandala\_24\_inst1\_C & 24 & 0 & 3\,607.84 & 0.06 & 227\,263.89 & 45\,169.50 & 272\,558.30 \\
+mandala\_24\_inst1\_D & 24 & 0 & 3\,607.60 & 0.06 & 113\,178.36 & 432\,072.06 & 0.00 \\
+mandala\_48\_inst1\_A & 48 & 0 & 3\,614.20 & 0.39 & 643\,789.77 & 435\,823.82 & 0.00 \\
+mandala\_48\_inst1\_B & 48 & 0 & 3\,612.76 & 0.36 & 438\,026.07 & 459\,159.02 & 0.00 \\
+\midrule
+\multicolumn{8}{l}{\textit{France}} \\
+\midrule
+france\_12\_A & 12 & 1 & 2\,066.81 & 0.00 & 6\,538.46 & 26\,153.85 & 45\,769.23 \\
+france\_12\_B & 12 & 1 & 627.12 & 0.00 & 26\,153.85 & 32\,692.31 & 19\,615.38 \\
+france\_12\_C & 12 & 1 & 3\,119.80 & 0.00 & 13\,076.92 & 26\,153.85 & 39\,230.77 \\
+france\_12\_D & 12 & 1 & 1\,085.41 & 0.00 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+france\_24\_A & 24 & 0 & 3\,604.80 & 1.50 & 52\,948.72 & 46\,025.64 & 59\,641.03 \\
+france\_24\_B & 24 & 0 & 3\,604.26 & 0.55 & 52\,820.51 & 52\,820.51 & 52\,820.51 \\
+france\_48\_A & 48 & 0 & 3\,607.05 & 2.78 & 118\,282.05 & 91\,461.54 & 124\,641.03 \\
+\midrule
+\multicolumn{8}{l}{\textit{Norway}} \\
+\midrule
+norway\_12\_1\_A & 12 & 0 & 3\,606.62 & 2.94 & 32\,692.31 & 13\,076.92 & 32\,692.31 \\
+norway\_12\_1\_B & 12 & 0 & 3\,605.72 & 3.93 & 32\,692.31 & 26\,153.85 & 19\,615.38 \\
+norway\_12\_2\_C & 12 & 1 & 561.59 & 0.00 & 32\,692.31 & 19\,615.38 & 26\,153.85 \\
+norway\_12\_2\_D & 12 & 1 & 2\,268.84 & 0.00 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+norway\_12\_3\_E & 12 & 1 & 1\,139.17 & 0.00 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+norway\_12\_3\_F & 12 & 0 & 3\,605.58 & 14.42 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+norway\_12\_4\_G & 12 & 0 & 3\,604.78 & 3.28 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+norway\_12\_4\_H & 12 & 1 & 1\,102.23 & 0.00 & 32\,692.31 & 26\,153.85 & 19\,615.38 \\
+norway\_24\_1\_B & 24 & 0 & 3\,605.14 & 1.61 & 52\,756.41 & 53\,307.69 & 53\,102.56 \\
+norway\_24\_1\_C & 24 & 0 & 3\,603.95 & 2.59 & 59\,538.46 & 52\,410.26 & 46\,435.90 \\
+norway\_24\_4\_B & 24 & 0 & 3\,604.70 & 1.55 & 52\,820.51 & 52\,820.51 & 52\,538.46 \\
+norway\_24\_4\_C & 24 & 0 & 3\,604.11 & 1.17 & 52\,820.51 & 52\,820.51 & 53\,205.13 \\
+norway\_48\_10\_A & 48 & 0 & 3\,607.53 & 3.31 & 111\,141.03 & 118\,025.64 & 105\,218.00 \\
+norway\_48\_5\_A & 48 & 0 & 3\,608.97 & 3.07 & 110\,423.08 & 111\,166.67 & 112\,397.44 \\
+norway\_48\_5\_B & 48 & 0 & 3\,607.97 & 8.48 & 138\,487.18 & 118\,910.26 & 77\,194.87 \\
+\midrule
+\multicolumn{8}{l}{\textit{TA1}} \\
+\midrule
+ta1\_12\_1\_A & 12 & 1 & 1\,244.29 & 0.00 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+ta1\_12\_1\_B & 12 & 1 & 486.68 & 0.00 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+ta1\_12\_2\_B & 12 & 1 & 817.05 & 0.00 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+ta1\_12\_2\_C & 12 & 1 & 2\,422.40 & 0.00 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+ta1\_12\_3\_F & 12 & 1 & 795.64 & 0.00 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+ta1\_12\_3\_G & 12 & 1 & 2\,539.67 & 0.00 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+ta1\_12\_4\_G & 12 & 1 & 1\,393.90 & 0.00 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+ta1\_12\_4\_H & 12 & 1 & 1\,098.05 & 0.00 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+ta1\_24\_2\_B & 24 & 0 & 3\,604.14 & 0.89 & 52\,820.51 & 52\,820.51 & 52\,820.51 \\
+ta1\_24\_2\_C & 24 & 0 & 3\,604.04 & 0.85 & 52\,820.51 & 52\,820.51 & 52\,820.51 \\
+ta1\_24\_4\_A & 24 & 0 & 3\,603.97 & 1.01 & 52\,820.51 & 52\,820.51 & 52\,538.46 \\
+ta1\_24\_4\_B & 24 & 0 & 3\,604.67 & 1.33 & 52\,820.51 & 52\,820.51 & 52\,820.51 \\
+ta1\_48\_1\_B & 48 & 0 & 3\,608.19 & 14.39 & 62\,512.82 & 86\,000.00 & 185\,871.80 \\
+ta1\_48\_2\_A & 48 & 0 & 3\,607.78 & 41.79 & 86\,000.00 & 31\,525.64 & 291\,741.65 \\
+ta1\_48\_4\_A & 48 & 0 & 3\,608.03 & 16.23 & 114\,576.92 & 104\,000.00 & 143\,153.84 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ==================== TABLE: SUM MODEL ====================
+\begin{table}[h!]
+\centering
+\scriptsize
+\caption{Computational results --- min-sum model ($\min\, \sum_k L^k$).}
+\label{tab:results_sum}
+\begin{tabular}{@{}l r c r r r r r@{}}
+\toprule
+\textbf{Instance} & $|D|$ & \textbf{Opt} & \textbf{Time (s)} & \textbf{Gap (\%)} & $L_{\text{AIF}_1}$ & $L_{\text{AIF}_2}$ & $L_{\text{AIF}_3}$ \\
+\midrule
+\multicolumn{8}{l}{\textit{Mandala --- Balanced}} \\
+\midrule
+mandala\_12\_balanced\_A & 12 & 1 & 144.98 & 0.00 & 0.00 & 68\,151.27 & 180\,761.59 \\
+mandala\_12\_balanced\_B & 12 & 1 & 118.85 & 0.00 & 90\,760.75 & 0.00 & 45\,297.67 \\
+mandala\_24\_balanced    & 24 & 0 & 3\,608.08 & 0.06 & 318\,151.04 & 0.00 & 45\,169.50 \\
+mandala\_48\_balanced    & 48 & 0 & 3\,616.84 & 0.22 & 642\,089.63 & 390\,894.69 & 0.00 \\
+\midrule
+\multicolumn{8}{l}{\textit{Mandala --- Inst (random)}} \\
+\midrule
+mandala\_12\_inst1\_A & 12 & 1 & 116.63 & 0.00 & 0.00 & 135\,709.93 & 0.00 \\
+mandala\_12\_inst1\_B & 12 & 1 & 151.92 & 0.00 & 0.00 & 45\,196.25 & 0.00 \\
+mandala\_12\_inst1\_C & 12 & 1 & 129.89 & 0.00 & 249\,455.99 & 22\,431.81 & 0.00 \\
+mandala\_12\_inst1\_D & 12 & 1 & 138.09 & 0.00 & 89\,894.24 & 113\,244.76 & 0.00 \\
+mandala\_12\_inst1\_E & 12 & 1 & 158.64 & 0.00 & 0.00 & 0.00 & 68\,323.21 \\
+mandala\_12\_inst1\_F & 12 & 1 & 129.99 & 0.00 & 0.00 & 0.00 & 67\,798.26 \\
+mandala\_12\_inst1\_G & 12 & 1 & 137.75 & 0.00 & 135\,500.44 & 0.00 & 0.00 \\
+mandala\_12\_inst1\_H & 12 & 1 & 139.81 & 0.00 & 136\,136.73 & 0.00 & 0.00 \\
+mandala\_24\_inst1\_A & 24 & 0 & 3\,607.81 & 0.10 & 204\,414.43 & 0.00 & 272\,843.82 \\
+mandala\_24\_inst1\_B & 24 & 0 & 3\,607.76 & 0.10 & 90\,694.21 & 181\,985.91 & 0.00 \\
+mandala\_24\_inst1\_C & 24 & 0 & 3\,607.44 & 0.07 & 0.00 & 22\,577.31 & 340\,472.81 \\
+mandala\_24\_inst1\_D & 24 & 0 & 3\,609.12 & 0.13 & 45\,110.01 & 432\,072.06 & 0.00 \\
+mandala\_48\_inst1\_A & 48 & 0 & 3\,615.42 & 0.31 & 643\,789.77 & 435\,823.82 & 0.00 \\
+mandala\_48\_inst1\_B & 48 & 0 & 3\,614.34 & 0.27 & 482\,722.20 & 414\,462.81 & 0.00 \\
+\midrule
+\multicolumn{8}{l}{\textit{France}} \\
+\midrule
+france\_12\_A & 12 & 0 & 3\,602.67 & 0.16 & 19\,615.38 & 26\,153.85 & 32\,692.31 \\
+france\_12\_B & 12 & 0 & 3\,602.63 & 0.08 & 19\,615.36 & 26\,153.84 & 32\,692.25 \\
+france\_12\_C & 12 & 0 & 3\,602.54 & 0.13 & 39\,230.77 & 13\,076.92 & 26\,153.85 \\
+france\_12\_D & 12 & 0 & 3\,602.40 & 0.06 & 13\,076.92 & 26\,153.85 & 39\,230.77 \\
+france\_24\_A & 24 & 0 & 3\,603.82 & 1.67 & 46\,358.97 & 32\,948.72 & 79\,307.69 \\
+france\_24\_B & 24 & 0 & 3\,603.95 & 1.38 & 72\,487.18 & 26\,358.97 & 59\,307.69 \\
+france\_48\_A & 48 & 0 & 3\,606.31 & 7.17 & 119\,333.33 & 97\,628.20 & 117\,423.07 \\
+\midrule
+\multicolumn{8}{l}{\textit{Norway}} \\
+\midrule
+norway\_12\_1\_A & 12 & 0 & 3\,606.30 & 323.42 & 52\,307.69 & 13\,076.92 & 13\,076.92 \\
+norway\_12\_1\_B & 12 & 0 & 3\,606.69 & 350.72 & 45\,769.23 & 19\,615.38 & 13\,076.92 \\
+norway\_12\_2\_C & 12 & 1 & 320.92 & 0.00 & 32\,692.31 & 19\,615.38 & 26\,153.85 \\
+norway\_12\_2\_D & 12 & 1 & 886.93 & 0.00 & 26\,153.85 & 19\,615.38 & 32\,692.31 \\
+norway\_12\_3\_E & 12 & 1 & 1\,377.39 & 0.00 & 19\,615.38 & 13\,076.92 & 45\,769.23 \\
+norway\_12\_3\_F & 12 & 0 & 3\,606.45 & 388.54 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+norway\_12\_4\_G & 12 & 0 & 3\,603.08 & 0.14 & 26\,153.85 & 13\,076.92 & 39\,230.77 \\
+norway\_12\_4\_H & 12 & 0 & 3\,604.25 & 70.04 & 45\,769.23 & 13\,076.92 & 19\,615.38 \\
+norway\_24\_1\_B & 24 & 0 & 3\,604.04 & 2.01 & 66\,333.33 & 26\,756.41 & 66\,076.92 \\
+norway\_24\_1\_C & 24 & 0 & 3\,604.25 & 1.43 & 46\,128.21 & 32\,948.72 & 79\,307.69 \\
+norway\_24\_4\_B & 24 & 0 & 3\,604.16 & 1.33 & 92\,346.15 & 46\,051.28 & 19\,782.05 \\
+norway\_24\_4\_C & 24 & 0 & 3\,604.20 & 1.82 & 85\,897.44 & 39\,538.46 & 33\,410.26 \\
+norway\_48\_10\_A & 48 & 0 & 3\,614.23 & $\infty$ & 111\,141.03 & 161\,256.41 & 63\,076.92 \\
+norway\_48\_5\_A & 48 & 0 & 3\,607.46 & 66\,697.44 & 146\,294.87 & 41\,730.77 & 145\,961.54 \\
+norway\_48\_5\_B & 48 & 0 & 3\,606.83 & 7.24 & 138\,487.18 & 48\,397.44 & 147\,705.13 \\
+\midrule
+\multicolumn{8}{l}{\textit{TA1}} \\
+\midrule
+ta1\_12\_1\_A & 12 & 0 & 3\,602.80 & 0.20 & 13\,076.92 & 32\,692.31 & 32\,692.31 \\
+ta1\_12\_1\_B & 12 & 0 & 3\,602.54 & 0.07 & 6\,538.46 & 45\,769.23 & 26\,153.85 \\
+ta1\_12\_2\_B & 12 & 0 & 3\,602.56 & 0.09 & 19\,615.38 & 32\,692.31 & 26\,153.85 \\
+ta1\_12\_2\_C & 12 & 0 & 3\,602.62 & 0.13 & 13\,076.91 & 32\,692.31 & 32\,692.31 \\
+ta1\_12\_3\_F & 12 & 1 & 1\,040.00 & 0.00 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+ta1\_12\_3\_G & 12 & 0 & 3\,602.67 & 0.13 & 26\,153.85 & 26\,153.85 & 26\,153.85 \\
+ta1\_12\_4\_G & 12 & 1 & 2\,686.36 & 0.00 & 26\,153.85 & 39\,230.77 & 13\,076.92 \\
+ta1\_12\_4\_H & 12 & 0 & 3\,602.59 & 0.09 & 39\,230.77 & 13\,076.92 & 26\,153.85 \\
+ta1\_24\_2\_B & 24 & 0 & 3\,604.14 & 1.82 & 46\,358.97 & 52\,948.72 & 59\,538.46 \\
+ta1\_24\_2\_C & 24 & 0 & 3\,603.91 & 1.84 & 26\,589.74 & 72\,756.41 & 59\,525.63 \\
+ta1\_24\_4\_A & 24 & 0 & 3\,603.78 & 1.68 & 72\,487.18 & 59\,769.23 & 26\,358.97 \\
+ta1\_24\_4\_B & 24 & 0 & 3\,603.82 & 1.38 & 52\,756.41 & 65\,935.90 & 39\,487.18 \\
+ta1\_48\_1\_B & 48 & 0 & 3\,606.78 & 7.12 & 97\,448.72 & 97\,320.51 & 139\,435.90 \\
+ta1\_48\_2\_A & 48 & 0 & 3\,607.18 & 7.85 & 28\,243.59 & 167\,910.26 & 140\,333.33 \\
+ta1\_48\_4\_A & 48 & 0 & 3\,606.45 & 8.07 & 127\,000.00 & 83\,923.08 & 126\,269.23 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
